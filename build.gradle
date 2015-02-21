@@ -1,0 +1,29 @@
+apply plugin: 'groovy'
+apply plugin: 'idea'
+apply plugin: 'maven'
+apply plugin: 'application'
+
+//mainClassName = "can.i.has.experiments.example.Experiments"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Common dependencies
+    compile 'org.codehaus.groovy:groovy-all:2.4.0'
+    compile 'org.slf4j:slf4j-api:1.7.2'
+
+    testCompile 'junit:junit:4.11'
+
+    runtime 'org.slf4j:slf4j-log4j12:1.7.2'
+
+}
+
+test {
+    useJUnit()
+}
+
+task wrapper(type: Wrapper){
+    gradleVersion = '1.12'
+}
