@@ -1,0 +1,10 @@
+This is example document showing that MSEA algorithm gives similiar results as standard EA for benchmark problem
+defined as:
+
+\begin{math}
+max f(x, y) \\
+f(x, y) = \sqrt[3]{x} sin(x) + \sqrt[3]{y} sin(y) + k\\
+k \in \mathbb{R_{+}}
+\end{math}
+
+where k is any real number, used to make this function positive on the whole domain.
