@@ -1,19 +1,25 @@
-apply plugin: 'groovy'
-apply plugin: 'idea'
-apply plugin: 'maven'
-apply plugin: 'application'
-
-//mainClassName = "com.github.filipmalczak.impl.example_msga.GreXperiment"
+plugins {
+    id 'groovy'
+    id 'idea'
+    id 'maven'
+    id 'application'
+}
 
 repositories {
     mavenCentral()
+    jcenter()
+    maven {
+        url "http://dl.bintray.com/filipmalczak/maven"
+    }
 }
+
+mainClassName = 'com.github.filipmalczak.impl.example_msga.Experiment'
 
 dependencies {
     // Common dependencies
-    compile 'org.codehaus.groovy:groovy-all:2.4.0'
+    compile localGroovy()
     compile 'org.slf4j:slf4j-api:1.7.2'
-    compile project(":GreX")
+    compile "can.i.has:GreX:0.1"
 
     testCompile 'junit:junit:4.11'
 
