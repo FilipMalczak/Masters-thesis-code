@@ -1,4 +1,4 @@
-package com.github.filipmalczak.ga.operators
+package com.github.filipmalczak.ea.operators
 
 import com.github.filipmalczak.heuristics.Context
 import com.github.filipmalczak.heuristics.Specimen

@@ -14,6 +14,7 @@ interface Specimen {
      * @return integer from range [0..numberOfGendersInUniverse) - usually 0 or 1, but we can experiment with multiple genders.
      */
     int getGender()
+    void setGender(int gender)
 
     /**
      * Cloneable has quite complicated contract and may have some weird behaviour in some cases. Use this to obtain

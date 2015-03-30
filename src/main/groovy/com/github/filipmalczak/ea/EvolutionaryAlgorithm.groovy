@@ -1,14 +1,14 @@
-package com.github.filipmalczak.ga
+package com.github.filipmalczak.ea
 
-import com.github.filipmalczak.ga.alg.ContextHandler
-import com.github.filipmalczak.ga.alg.GeneratePopulation
-import com.github.filipmalczak.ga.alg.StopCondition
-import com.github.filipmalczak.ga.operators.CrossoverOperator
-import com.github.filipmalczak.ga.operators.GenderSelectionOperator
-import com.github.filipmalczak.ga.operators.MutationOperator
-import com.github.filipmalczak.ga.operators.NaturalSelectionOperator
-import com.github.filipmalczak.ga.prob.CP
-import com.github.filipmalczak.ga.prob.MP
+import com.github.filipmalczak.ea.alg.ContextHandler
+import com.github.filipmalczak.ea.alg.GeneratePopulation
+import com.github.filipmalczak.ea.alg.StopCondition
+import com.github.filipmalczak.ea.operators.CrossoverOperator
+import com.github.filipmalczak.ea.operators.GenderSelectionOperator
+import com.github.filipmalczak.ea.operators.MutationOperator
+import com.github.filipmalczak.ea.operators.NaturalSelectionOperator
+import com.github.filipmalczak.ea.prob.CP
+import com.github.filipmalczak.ea.prob.MP
 import com.github.filipmalczak.heuristics.Context
 import com.github.filipmalczak.heuristics.Specimen
 

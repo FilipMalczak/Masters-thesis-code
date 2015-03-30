@@ -1,4 +1,4 @@
-package com.github.filipmalczak.ga.prob
+package com.github.filipmalczak.ea.prob
 
 import com.github.filipmalczak.heuristics.Context
 import com.github.filipmalczak.heuristics.Specimen

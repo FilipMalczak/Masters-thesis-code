@@ -1,6 +1,6 @@
 package com.github.filipmalczak.impl
 
-import com.github.filipmalczak.ga.operators.GenderSelectionOperator
+import com.github.filipmalczak.ea.operators.GenderSelectionOperator
 import com.github.filipmalczak.heuristics.Context
 import com.github.filipmalczak.heuristics.Specimen
 

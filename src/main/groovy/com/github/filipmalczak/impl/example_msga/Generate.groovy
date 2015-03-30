@@ -1,6 +1,6 @@
 package com.github.filipmalczak.impl.example_msga
 
-import com.github.filipmalczak.ga.alg.GeneratePopulation
+import com.github.filipmalczak.ea.alg.GeneratePopulation
 import com.github.filipmalczak.heuristics.Context
 
 import static com.github.filipmalczak.utils.RandomUtils.random

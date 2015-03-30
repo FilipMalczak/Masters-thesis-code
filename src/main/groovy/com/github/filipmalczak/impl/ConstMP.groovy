@@ -1,6 +1,6 @@
 package com.github.filipmalczak.impl
 
-import com.github.filipmalczak.ga.prob.MP
+import com.github.filipmalczak.ea.prob.MP
 import com.github.filipmalczak.heuristics.Context
 import com.github.filipmalczak.heuristics.Specimen
 

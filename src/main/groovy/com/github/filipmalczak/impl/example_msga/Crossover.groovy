@@ -1,6 +1,6 @@
 package com.github.filipmalczak.impl.example_msga
 
-import com.github.filipmalczak.ga.operators.CrossoverOperator
+import com.github.filipmalczak.ea.operators.CrossoverOperator
 import com.github.filipmalczak.heuristics.Context
 import com.github.filipmalczak.utils.RandomUtils
 

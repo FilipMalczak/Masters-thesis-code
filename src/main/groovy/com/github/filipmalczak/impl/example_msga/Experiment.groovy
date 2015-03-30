@@ -1,6 +1,6 @@
 package com.github.filipmalczak.impl.example_msga
 
-import com.github.filipmalczak.ga.EvolutionaryAlgorithm
+import com.github.filipmalczak.ea.EvolutionaryAlgorithm
 import com.github.filipmalczak.heuristics.Context
 import com.github.filipmalczak.impl.ConstCP
 import com.github.filipmalczak.impl.ConstMP

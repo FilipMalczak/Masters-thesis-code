@@ -28,5 +28,4 @@ class RandomUtils {
             return []
         (1..size).collect { happens(prob) }
     }
-
 }

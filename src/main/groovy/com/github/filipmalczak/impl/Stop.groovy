@@ -1,6 +1,6 @@
 package com.github.filipmalczak.impl
 
-import com.github.filipmalczak.ga.alg.StopCondition
+import com.github.filipmalczak.ea.alg.StopCondition
 import com.github.filipmalczak.heuristics.Context
 import com.github.filipmalczak.heuristics.Specimen
 

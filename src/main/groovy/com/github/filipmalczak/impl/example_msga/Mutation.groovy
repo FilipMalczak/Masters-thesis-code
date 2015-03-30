@@ -1,6 +1,6 @@
 package com.github.filipmalczak.impl.example_msga
 
-import com.github.filipmalczak.ga.operators.MutationOperator
+import com.github.filipmalczak.ea.operators.MutationOperator
 import com.github.filipmalczak.heuristics.Context
 
 import static com.github.filipmalczak.utils.RandomUtils.random

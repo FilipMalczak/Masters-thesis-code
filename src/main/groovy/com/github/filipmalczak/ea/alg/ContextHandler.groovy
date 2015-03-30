@@ -1,4 +1,4 @@
-package com.github.filipmalczak.ga.alg
+package com.github.filipmalczak.ea.alg
 
 import com.github.filipmalczak.heuristics.Context
 import com.github.filipmalczak.heuristics.Specimen

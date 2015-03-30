@@ -1,13 +1,16 @@
 package com.github.filipmalczak.heuristics
 
+import groovy.time.TimeCategory
 import groovy.transform.EqualsAndHashCode
 
 @EqualsAndHashCode
 class Context<S extends Specimen> {
+    Map<String, Object> problemDefinition = [:]
+
     // GA state
-    int generation
-    int mutProb
-    int crossProb
+    int generation = 0
+    int mutProb = 0
+    int crossProb = 0
 
 
 
@@ -47,5 +50,13 @@ class Context<S extends Specimen> {
 
     void pushMP(double mp) {
         MPHistory = [mp] + MPHistory
+    }
+
+    def getDuration(){
+        if (!(startTime && endTime))
+            return null
+        use(TimeCategory){
+            endTime - startTime
+        }
     }
 }
