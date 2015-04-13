@@ -1,5 +1,6 @@
 package com.github.filipmalczak.heuristics
 
+//todo: add phenotype (like bothcost and weight in knapsack)
 interface Specimen {
     /**
      * Evaluation function for minimalising task.

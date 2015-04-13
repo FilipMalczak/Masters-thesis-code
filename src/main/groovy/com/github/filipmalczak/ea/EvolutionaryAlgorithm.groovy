@@ -9,6 +9,7 @@ import com.github.filipmalczak.ea.operators.MutationOperator
 import com.github.filipmalczak.ea.operators.NaturalSelectionOperator
 import com.github.filipmalczak.ea.prob.CP
 import com.github.filipmalczak.ea.prob.MP
+import com.github.filipmalczak.ea.utils.EASetup
 import com.github.filipmalczak.heuristics.Context
 import com.github.filipmalczak.heuristics.Specimen
 
@@ -34,8 +35,6 @@ class EvolutionaryAlgorithm<S extends Specimen> {
 
     CP<S> cp
     MP<S> mp
-
-
 
     /**
      * Run genetic algorithm parametrized with attributes of this instance.

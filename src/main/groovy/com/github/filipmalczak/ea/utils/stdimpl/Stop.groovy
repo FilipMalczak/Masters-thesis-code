@@ -1,4 +1,4 @@
-package com.github.filipmalczak.impl
+package com.github.filipmalczak.ea.utils.stdimpl
 
 import com.github.filipmalczak.ea.alg.StopCondition
 import com.github.filipmalczak.heuristics.Context

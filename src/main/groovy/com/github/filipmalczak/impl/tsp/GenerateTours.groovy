@@ -13,6 +13,6 @@ class GenerateTours extends AbstractGeneratePopulation<Tour> {
     Tour generateWithoutGender(Context<Tour> context) {
         def allIdxs = [ *(0..context.problemDefinition.model.points.size()-1) ]
         Collections.shuffle(allIdxs)
-        new Tour(allIdxs, context.problemDefinition.model)
+        new Tour(allIdxs)
     }
 }

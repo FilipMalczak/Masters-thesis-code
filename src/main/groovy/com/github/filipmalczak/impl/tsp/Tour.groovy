@@ -14,7 +14,6 @@ import groovy.transform.Memoized
 @Canonical
 class Tour implements Specimen{
     List<Integer> pointNumbers
-    TSPModel model = null
     int gender = 0
 
     @Memoized(maxCacheSize = 5000)  //todo: tweak!
@@ -36,6 +35,6 @@ class Tour implements Specimen{
 
     @Override
     Specimen copy() {
-        new Tour([*pointNumbers], model)
+        new Tour([*pointNumbers], gender)
     }
 }

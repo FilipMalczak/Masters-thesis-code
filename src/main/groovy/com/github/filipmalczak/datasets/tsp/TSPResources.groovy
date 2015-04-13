@@ -1,8 +1,5 @@
 package com.github.filipmalczak.datasets.tsp
 
-import com.github.filipmalczak.heuristics.Context
-
-
 class TSPResources {
     static TSPModel xqf131
 

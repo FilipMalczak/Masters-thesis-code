@@ -3,6 +3,7 @@ package com.github.filipmalczak.datasets.tsp
 import can.i.has.utils.Pair
 
 import groovy.transform.Canonical
+import groovy.transform.Memoized
 
 @Canonical
 class TSPModel {
@@ -17,6 +18,7 @@ class TSPModel {
         dx*dx + dy*dy
     }
 
+    @Memoized
     Number distance(int point1, int point2){
         Math.sqrt(distanceSquared(point1, point2))
     }

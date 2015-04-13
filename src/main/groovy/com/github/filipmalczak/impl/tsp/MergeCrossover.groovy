@@ -2,7 +2,8 @@ package com.github.filipmalczak.impl.tsp
 
 import com.github.filipmalczak.ea.operators.CrossoverOperator
 import com.github.filipmalczak.heuristics.Context
-import static com.github.filipmalczak.utils.RandomUtils.*
+
+import static com.github.filipmalczak.utils.RandomUtils.random
 
 
 class MergeCrossover implements CrossoverOperator<Tour>{

@@ -15,10 +15,21 @@ class RandomUtils {
         population[r.nextInt(population.size())]
     }
 
+    /**
+     * [0, max)
+     * @param max
+     * @return
+     */
     static int random(int max){
         r.nextInt(max)
     }
 
+    /**
+     * [from, to)
+     * @param from
+     * @param to
+     * @return
+     */
     static double random(double from, double to){
         r.nextDouble()*(to-from)+from
     }
