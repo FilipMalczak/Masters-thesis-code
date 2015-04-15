@@ -11,9 +11,10 @@ abstract class AbstractGeneratePopulation<S extends Specimen> implements Generat
     @Override
     List<S> generate(int size, Context<S> context) {
         def out = []
-        size.times {
-            out << generateOne(context)
-        }
+        if (size)
+            size.times {
+                out << generateOne(context)
+            }
         out
     }
 

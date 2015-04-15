@@ -3,6 +3,7 @@ plugins {
     id 'idea'
     id 'maven'
     id 'jacoco'
+    id 'application'
 }
 
 repositories {
@@ -15,12 +16,20 @@ repositories {
     }
 }
 
+run.doFirst {
+    file("src/main/resources/storage.properties").withOutputStream {
+        ([ baseDir: file("storage").absolutePath ] as Properties).store(it, "Storage configuration")
+    }
+}
+
+mainClassName = "com.github.filipmalczak.experiments.RunAll"
 
 dependencies {
     // Common dependencies
     compile localGroovy()
     compile 'org.slf4j:slf4j-api:1.7.2'
     compile "can.i.has:GreX:0.2-SNAPSHOT"
+    compile "org.codehaus.gpars:gpars:1.2.1"
 
     testCompile 'junit:junit:4.11'
 

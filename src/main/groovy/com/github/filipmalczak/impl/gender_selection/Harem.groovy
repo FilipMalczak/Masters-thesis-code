@@ -17,7 +17,7 @@ class Harem<S extends Specimen> extends AbstractGenderSelection<S>{
 
     @Override
     List<List<S>> selectParentSets(List<S> population, int popSize, Context context) {
-        int outSize = (int) Math.ceil(popSize*context.crossProb)
+        int outSize = (int) Math.ceil(popSize*context.crossProb/1000)
         def out = []
         Map<Integer, List<S>> perGender = groupByGender(population)
         List<S> alphas = []

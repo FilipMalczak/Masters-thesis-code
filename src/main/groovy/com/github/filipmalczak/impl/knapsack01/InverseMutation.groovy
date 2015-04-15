@@ -8,11 +8,11 @@ import com.github.filipmalczak.utils.RandomUtils
 class InverseMutation implements MutationOperator<BitVector>{
     @Override
     List<BitVector> mutate(BitVector bitVector, Context context) {
-        new BitVector(
+        [ new BitVector(
             bitVector.vector.collect {
                 RandomUtils.happens(context.mutProb) ? !it : it
             },
             bitVector.gender
-        )
+        ) ]
     }
 }

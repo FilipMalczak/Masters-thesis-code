@@ -16,7 +16,7 @@ class OnePointCrossover implements CrossoverOperator<BitVector>{
     List<BitVector> crossOver(List<BitVector> parents, Context context) {
         def p1 = parents[0]
         def p2 = parents[1]
-        int cutPoint = RandomUtils.random(p1.vector.size())
+        int cutPoint = 1+ RandomUtils.random(p1.vector.size()-1)
         int firstGenderIdx = RandomUtils.random(2)
         [
             new BitVector(

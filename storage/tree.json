@@ -1,0 +1,14 @@
+{
+    "rastrigin": {
+        "initial": {
+            "maxGen": 200,
+            "mixinFactor": 0.1,
+            "natSel": "ts3",
+            "popSize": 20,
+            "probs": [
+                0.8,
+                0.3
+            ]
+        }
+    }
+}

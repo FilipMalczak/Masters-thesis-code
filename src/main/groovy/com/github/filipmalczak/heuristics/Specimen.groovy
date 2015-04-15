@@ -1,7 +1,7 @@
 package com.github.filipmalczak.heuristics
 
 //todo: add phenotype (like bothcost and weight in knapsack)
-interface Specimen {
+interface Specimen extends Serializable{
     /**
      * Evaluation function for minimalising task.
      * The lower evaluation function result, the better the specimen.

@@ -4,7 +4,7 @@ import groovy.time.TimeCategory
 import groovy.transform.EqualsAndHashCode
 
 @EqualsAndHashCode
-class Context<S extends Specimen> {
+class Context<S extends Specimen> implements Serializable{
     Map<String, Object> problemDefinition = [:]
 
     // GA state

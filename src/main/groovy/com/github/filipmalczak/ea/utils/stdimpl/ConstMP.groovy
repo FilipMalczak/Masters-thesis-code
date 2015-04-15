@@ -12,6 +12,6 @@ class ConstMP<S extends Specimen> implements MP<S> {
 
     @Override
     int getMutationProbability(List<S> population, Context context) {
-        mp
+        mp*1000
     }
 }

@@ -12,7 +12,7 @@ class AvgCrossover implements CrossoverOperator<Point>{
      */
     @Override
     List<Point> crossOver(List<Point> parents, Context context) {
-        parents.shuffle()
+        Collections.shuffle(parents)
         Point out = parents[0].copy()
         parents.tail().each { parent ->
             out.coordinates.size().times { i ->
@@ -22,6 +22,6 @@ class AvgCrossover implements CrossoverOperator<Point>{
         out.coordinates.size().times { i ->
             out.coordinates[i] /= out.coordinates.size()
         }
-        out
+        [ out ]
     }
 }

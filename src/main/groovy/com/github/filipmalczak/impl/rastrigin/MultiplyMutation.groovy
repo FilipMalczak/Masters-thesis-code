@@ -12,6 +12,6 @@ class MultiplyMutation implements MutationOperator<Point>{
         def idx = RandomUtils.random(out.coordinates.size())
         def multiplier = RandomUtils.random(0.1, 2.0)
         out.coordinates[idx] *= multiplier
-        out
+        [ out ]
     }
 }

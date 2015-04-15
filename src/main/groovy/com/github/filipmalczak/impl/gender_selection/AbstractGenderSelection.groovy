@@ -14,9 +14,9 @@ abstract class AbstractGenderSelection<S extends Specimen> implements GenderSele
 
     @Override
     List<List<S>> selectParentSets(List<S> population, int popSize, Context context) {
-        def outSize = Math.ceil(popSize*context.crossProb)
+        def outSize = Math.ceil(popSize*context.crossProb/1000)
         def out = []
-        def perGender = usesGender()? groupByGender(population) : null
+        def perGender = usesGender()? groupByGender(population) : [:].withDefault { population }
         outSize.times {
             out.add(generateParentSet(population, context, perGender))
         }

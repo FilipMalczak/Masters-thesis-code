@@ -12,6 +12,6 @@ class ConstCP<S extends Specimen> implements CP<S> {
 
     @Override
     int getCrossoverProbability(List<S> population, Context context) {
-        cp
+        cp*1000
     }
 }

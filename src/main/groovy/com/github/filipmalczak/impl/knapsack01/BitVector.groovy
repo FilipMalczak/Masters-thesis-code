@@ -18,8 +18,12 @@ class BitVector implements Specimen{
         def size = 0
         vector.eachWithIndex { boolean entry, int i ->
             if (entry) {
-                price += model.data[i].first
-                size += model.data[i].second
+                try {
+                    price += model.data[i].first
+                    size += model.data[i].second
+                } catch (Throwable t){
+                    throw t
+                }
             }
         }
         def overload = size - model.maxSize
