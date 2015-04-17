@@ -1,6 +1,6 @@
 package com.github.filipmalczak.datasets.knapsack01
 
-import can.i.has.utils.Pair
+import com.github.filipmalczak.utils.Pair
 
 class KnapsackLoader {
     KnapsackModel loadData(String resource, ClassLoader classLoader=null){

@@ -1,6 +1,7 @@
 package com.github.filipmalczak.datasets.tsp
 
-import can.i.has.utils.Pair
+import com.github.filipmalczak.utils.Pair
+
 
 class TSPLoaderTest extends GroovyTestCase {
     List<Pair<Number, Number>> expected

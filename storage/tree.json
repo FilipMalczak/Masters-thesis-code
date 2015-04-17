@@ -1,4 +1,9 @@
 {
+    "knapsack": {
+        "initial": {
+            "popSize": 50
+        }
+    },
     "rastrigin": {
         "initial": {
             "maxGen": 200,

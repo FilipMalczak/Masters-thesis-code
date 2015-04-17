@@ -90,7 +90,6 @@ new Explore(
                 new NoGender<Tour>(new RandomChoose<Tour>())
             }
         })
-        ctx.problemDefinition = null
         ctx
     },
     { String paramName, def val, def realVal ->
@@ -99,7 +98,6 @@ new Explore(
     { Map<Object, List> results ->
         results.keySet().max { k ->
             def ctx =  results[k].max { Context c ->
-                c.problemDefinition = [ model: TSPResources.xqf131 ]
                 c.globalBest.evaluate(c)
             }
             ctx.globalBest.evaluate(ctx)
@@ -270,7 +268,6 @@ new Explore(
                 new NoGender<Point>(new RandomChoose<Point>())
             }
         })
-        ctx.problemDefinition = null
         ctx
     },
     { String paramName, def val, def realVal ->
@@ -279,7 +276,6 @@ new Explore(
     { Map<Object, List> results ->
         results.keySet().max { k ->
             def ctx =  results[k].max { Context c -> c.globalBest.evaluate(c) }
-            c.problemDefinition = [ model: KnapsackResources.medium ]
             ctx.globalBest.evaluate(ctx)
         }
     }

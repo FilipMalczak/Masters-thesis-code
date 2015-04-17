@@ -1,12 +1,12 @@
 package com.github.filipmalczak.datasets.tsp
 
-import can.i.has.utils.Pair
+import com.github.filipmalczak.utils.Pair
 
 import groovy.transform.Canonical
 import groovy.transform.Memoized
 
 @Canonical
-class TSPModel {
+class TSPModel implements Serializable{
     Number bound
     List<Pair<Double , Double >> points
 
@@ -18,7 +18,7 @@ class TSPModel {
         dx*dx + dy*dy
     }
 
-    @Memoized
+//    @Memoized
     Number distance(int point1, int point2){
         Math.sqrt(distanceSquared(point1, point2))
     }

@@ -1,6 +1,5 @@
 package com.github.filipmalczak.experiments
 
-import com.github.filipmalczak.datasets.tsp.TSPResources
 import com.github.filipmalczak.heuristics.Context
 
 import groovy.transform.Canonical
@@ -21,10 +20,9 @@ class ToCSV implements Runnable{
     static void main(String... args){
         Storage.instance.init()
         new ToCSV(
-            "initial_tsp",
+            "initial_rastrigin",
             [ "popSize", "mixinFactor", "cp", "mp", "maxGen", "natSel"],
             { Context ctx ->
-                ctx.problemDefinition = [ model: TSPResources.xqf131 ]
                 ctx.globalBest.evaluate(ctx)
             }
         ).run()
