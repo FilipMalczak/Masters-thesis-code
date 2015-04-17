@@ -2,6 +2,7 @@ package com.github.filipmalczak.experiments
 
 import org.nustaq.serialization.FSTConfiguration
 
+import groovy.io.FileType
 import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
 
@@ -70,8 +71,12 @@ class Storage {
         treeFile.text = new JsonBuilder(upToDate).toPrettyString()
     }
 
+    File experimentDir(String name){
+        def dir = new File(resultsDir, name)
+    }
+
     File resultFile(String experimentName, String key){
-        def dir = new File(resultsDir, experimentName)
+        def dir = experimentDir(experimentName)
         if (!dir.exists())
             dir.mkdirs()
         new File(dir, key+".result")
@@ -86,5 +91,30 @@ class Storage {
 
     void putResult(String experimentName, String key, result){
         resultFile(experimentName, key).bytes = serialize(result)
+    }
+
+    /**
+     *
+     * @param c (String name, File dir)
+     */
+    void eachExperiment(Closure c){
+        resultsDir.eachDir { File dir ->
+            c.call(dir.name, dir)
+        }
+    }
+
+    /**
+     *
+     * @param experimentName
+     * @param c (List<String> paramValues, def result)
+     */
+    void eachResult(String experimentName, Closure c){
+        experimentDir(experimentName).eachFile(FileType.FILES) { File f ->
+            if (f.name.endsWith("result")) {
+                def result = deserialize(f.bytes)
+                c.call(f.name.replaceAll("[.]result", "").split("_").toList(), result)
+            }
+
+        }
     }
 }
