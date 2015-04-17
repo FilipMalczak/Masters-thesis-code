@@ -24,10 +24,10 @@ new Explore(
     5, 3,
     [ "popSize", "mixinFactor", "probs", "maxGen", "natSel"],
     [
-        popSize: [ 10, 20, 50, 10 ],
+        popSize: [ 10, 20, 50, 100 ],
         mixinFactor: [0.0, 0.1, 0.25, 0.5],
         probs: [0.6, 0.7, 0.8].collect { cp -> [0.1, 0.2, 0.3].collect { mp -> [cp, mp] } }.sum(),
-        maxGen: [25, 50, 100, 200],
+        maxGen: [25, 50, 100],
         natSel: ["roulette", "ts2", "ts3"]
     ],
     [
@@ -111,10 +111,10 @@ new Explore(
     5, 3,
     [ "popSize", "mixinFactor", "probs", "maxGen", "natSel"],
     [
-        popSize: [ 10, 20, 50, 10 ],
+        popSize: [ 10, 20, 50, 100 ],
         mixinFactor: [0.0, 0.1, 0.25, 0.5],
         probs: [0.6, 0.7, 0.8].collect { cp -> [0.1, 0.2, 0.3].collect { mp -> [cp, mp] } }.sum(),
-        maxGen: [25, 50, 100, 200],
+        maxGen: [25, 50, 100],
         natSel: ["roulette", "ts2", "ts3"]
     ],
     [
@@ -201,10 +201,10 @@ new Explore(
     5, 3,
     [ "popSize", "mixinFactor", "probs", "maxGen", "natSel"],
     [
-        popSize: [ 10, 20, 50, 10 ],
+        popSize: [ 10, 20, 50, 100 ],
         mixinFactor: [0.0, 0.1, 0.25, 0.5],
         probs: [0.6, 0.7, 0.8].collect { cp -> [0.1, 0.2, 0.3].collect { mp -> [cp, mp] } }.sum(),
-        maxGen: [25, 50, 100, 200],
+        maxGen: [25, 50, 100],
         natSel: ["roulette", "ts2", "ts3"]
     ],
     [

@@ -50,6 +50,13 @@ class Storage {
         out
     }
 
+    File getSummariesDir(){
+        def out = new File(baseDir, "summaries")
+        if (!out.exists())
+            out.mkdirs()
+        out
+    }
+
     static void recursiveMerge(Map map1, Map map2){
         map2.each { k, v ->
             if (map1[k] instanceof Map){
@@ -80,6 +87,13 @@ class Storage {
         if (!dir.exists())
             dir.mkdirs()
         new File(dir, key+".result")
+    }
+
+    File summaryFile(String name){
+        def out = new File(summariesDir, name)
+        if (!out.exists())
+            out.text = ""
+        out
     }
 
     def getResult(String experimentName, String key){
@@ -117,4 +131,6 @@ class Storage {
 
         }
     }
+
+
 }

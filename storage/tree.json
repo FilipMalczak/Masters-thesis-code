@@ -1,15 +1,15 @@
 {
     "knapsack": {
         "initial": {
-            "popSize": 50
+            "popSize": 100
         }
     },
     "rastrigin": {
         "initial": {
-            "maxGen": 200,
-            "mixinFactor": 0.1,
+            "maxGen": 100,
+            "mixinFactor": 0.5,
             "natSel": "ts3",
-            "popSize": 20,
+            "popSize": 100,
             "probs": [
                 0.8,
                 0.3
@@ -18,11 +18,13 @@
     },
     "tsp": {
         "initial": {
-            "mixinFactor": 0.25,
-            "popSize": 50,
+            "maxGen": 100,
+            "mixinFactor": 0,
+            "natSel": "ts3",
+            "popSize": 20,
             "probs": [
                 0.6,
-                0.1
+                0.2
             ]
         }
     }
