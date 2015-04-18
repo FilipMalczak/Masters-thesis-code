@@ -1,7 +1,14 @@
 {
     "knapsack": {
         "initial": {
-            "popSize": 100
+            "maxGen": 100,
+            "mixinFactor": 0.1,
+            "natSel": "ts3",
+            "popSize": 100,
+            "probs": [
+                0.8,
+                0.1
+            ]
         }
     },
     "rastrigin": {
