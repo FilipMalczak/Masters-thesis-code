@@ -10,3 +10,6 @@ import com.github.filipmalczak.impl.tsp.Tour
 
 Storage.instance.init()
 new InitialConfig().run()
+new ToCSV().run()
+new TweakConfig().run()
+new ToCSV().run()

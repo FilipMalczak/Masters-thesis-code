@@ -48,6 +48,10 @@
                 0.6,
                 0.1
             ]
+        },
+        "tweak": {
+            "mixinFactor": 0.25,
+            "popSize": 10
         }
     },
     "rastrigin": {
@@ -60,6 +64,16 @@
                 0.8,
                 0.3
             ]
+        },
+        "tweak": {
+            "maxGen": 100,
+            "mixinFactor": 0.05,
+            "natSel": "roulette",
+            "popSize": 5,
+            "probs": [
+                0.75,
+                0.35
+            ]
         }
     },
     "tsp": {
@@ -71,6 +85,16 @@
             "probs": [
                 0.6,
                 0.3
+            ]
+        },
+        "tweak": {
+            "maxGen": 100,
+            "mixinFactor": 0,
+            "natSel": "roulette",
+            "popSize": 5,
+            "probs": [
+                0.65,
+                0.35
             ]
         }
     }
