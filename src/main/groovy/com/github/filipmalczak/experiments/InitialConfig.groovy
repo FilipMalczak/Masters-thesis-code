@@ -96,13 +96,14 @@ new Explore(
         Storage.instance.updateTree([tsp: [initial: [(paramName): val]]])
     },
     { Map<Object, List> results ->
-        results.keySet().max { k ->
-            def ctx =  results[k].max { Context c ->
+        results.keySet().min { k ->
+            def ctx =  results[k].min { Context c ->
                 c.globalBest.evaluate(c)
             }
             ctx.globalBest.evaluate(ctx)
         }
-    }
+    },
+    [ "failed_initial_tsp" ]
 ).run()
 
 //rastrigin
@@ -188,11 +189,12 @@ new Explore(
         Storage.instance.updateTree([rastrigin: [initial: [(paramName): val]]])
     },
     { Map<Object, List> results ->
-        results.keySet().max { k ->
-            def ctx =  results[k].max { Context c -> c.globalBest.evaluate(c) }
+        results.keySet().min { k ->
+            def ctx =  results[k].min { Context c -> c.globalBest.evaluate(c) }
             ctx.globalBest.evaluate(ctx)
         }
-    }
+    },
+    [ "failed_initial_rastrigin" ]
 ).run()
 
 //knapsack
@@ -274,9 +276,10 @@ new Explore(
         Storage.instance.updateTree([knapsack: [initial: [(paramName): val]]])
     },
     { Map<Object, List> results ->
-        results.keySet().max { k ->
-            def ctx =  results[k].max { Context c -> c.globalBest.evaluate(c) }
+        results.keySet().min { k ->
+            def ctx =  results[k].min { Context c -> c.globalBest.evaluate(c) }
             ctx.globalBest.evaluate(ctx)
         }
-    }
+    },
+    [ "failed_initial_knapsack" ]
 ).run()

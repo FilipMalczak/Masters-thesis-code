@@ -73,13 +73,17 @@ class Storage {
     }
 
     void updateTree(Map toMerge){
-        Map upToDate = slurper.parse(treeFile)
+        Map upToDate = treeSnapshot
         recursiveMerge(upToDate, toMerge)
         treeFile.text = new JsonBuilder(upToDate).toPrettyString()
     }
 
+    Map getTreeSnapshot(){
+        slurper.parse(treeFile)
+    }
+
     File experimentDir(String name){
-        def dir = new File(resultsDir, name)
+        return new File(resultsDir, name)
     }
 
     File resultFile(String experimentName, String key){

@@ -22,8 +22,7 @@ run.doFirst {
     }
 }
 
-//mainClassName = "com.github.filipmalczak.experiments.RunAll"
-mainClassName = "com.github.filipmalczak.experiments.ToCSV"
+mainClassName = "com.github.filipmalczak.experiments.RunAll"
 
 dependencies {
     // Common dependencies

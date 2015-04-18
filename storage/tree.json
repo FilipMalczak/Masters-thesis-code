@@ -1,12 +1,51 @@
 {
+    "failed": {
+        "comment": "These results were found when I used (by mistake) max instead of min while choosing best param value",
+        "knapsack": {
+            "initial": {
+                "maxGen": 100,
+                "mixinFactor": 0,
+                "natSel": "ts3",
+                "popSize": 100,
+                "probs": [
+                    0.8,
+                    0.1
+                ]
+            }
+        },
+        "rastrigin": {
+            "initial": {
+                "maxGen": 100,
+                "mixinFactor": 0.5,
+                "natSel": "ts3",
+                "popSize": 100,
+                "probs": [
+                    0.8,
+                    0.3
+                ]
+            }
+        },
+        "tsp": {
+            "initial": {
+                "maxGen": 100,
+                "mixinFactor": 0,
+                "natSel": "ts3",
+                "popSize": 10,
+                "probs": [
+                    0.6,
+                    0.2
+                ]
+            }
+        }
+    },
     "knapsack": {
         "initial": {
-            "maxGen": 100,
-            "mixinFactor": 0.1,
-            "natSel": "ts3",
-            "popSize": 100,
+            "maxGen": 25,
+            "mixinFactor": 0.25,
+            "natSel": "roulette",
+            "popSize": 10,
             "probs": [
-                0.8,
+                0.6,
                 0.1
             ]
         }
@@ -14,9 +53,9 @@
     "rastrigin": {
         "initial": {
             "maxGen": 100,
-            "mixinFactor": 0.5,
-            "natSel": "ts3",
-            "popSize": 100,
+            "mixinFactor": 0,
+            "natSel": "roulette",
+            "popSize": 10,
             "probs": [
                 0.8,
                 0.3
@@ -27,11 +66,11 @@
         "initial": {
             "maxGen": 100,
             "mixinFactor": 0,
-            "natSel": "ts3",
-            "popSize": 20,
+            "natSel": "roulette",
+            "popSize": 10,
             "probs": [
                 0.6,
-                0.2
+                0.3
             ]
         }
     }

@@ -21,6 +21,7 @@ class Explore {
     Closure onParamFound // args: String paramName, def val, def realVal
     Closure chooseBest // arg: Map<Object, List> results; return: param val == key
 
+    List<String> reuseResultsFrom = []
     int poolSize = 9
 
     Map<String, Object> realize(Map<String, Object> config){
@@ -58,8 +59,21 @@ class Explore {
                             (0..repeats - 1).eachParallel { int i ->
                                 Map localConfig = current + [iteration: i, (param): val]
                                 String k = key(localConfig)
-                                log.info("${Thread.currentThread().name}: Checking key $k")
+                                log.info("${Thread.currentThread().name}: Looking for key $k in experiment $name")
                                 def result = Storage.instance.getResult(name, k)
+                                if (result == null) {
+                                    def reusableExperiment = reuseResultsFrom.find {
+                                        log.info("${Thread.currentThread().name}: Looking for key $k in experiment $it")
+                                        Storage.instance.getResult(it, k)
+                                    }
+                                    if (reusableExperiment) {
+                                        result = Storage.instance.getResult(reusableExperiment, k)
+                                        log.info("Found in $reusableExperiment")
+                                    }
+                                } else {
+                                    log.info("Found in $name")
+                                }
+
                                 if (result == null) {
                                     log.info "${Thread.currentThread().name}: No saved result, calling body"
                                     result = body.call(realize(localConfig))
