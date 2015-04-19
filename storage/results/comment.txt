@@ -1,0 +1,3 @@
+failed_initial_... are experiments where I (by mistake) used max() instead of min() in exploration scheme.
+These are legitimate results, but parameter space search was going in the wrong way.
+They can be reused in other experiments.
