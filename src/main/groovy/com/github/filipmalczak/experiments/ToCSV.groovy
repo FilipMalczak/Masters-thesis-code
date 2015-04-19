@@ -8,7 +8,9 @@ Map<String, List<String>> paramNamesForExperiments = [
     "initial_tsp": [ "popSize", "mixinFactor", "cp", "mp", "maxGen", "natSel"],
     "initial_knapsack": [ "popSize", "mixinFactor", "cp", "mp", "maxGen", "natSel"],
     "initial_rastrigin": [ "popSize", "mixinFactor", "cp", "mp", "maxGen", "natSel"],
-    "tweak_tsp": [ "popSize", "mixinFactor", "cp", "mp", "maxGen", "natSel"]
+    "tweak_tsp": [ "popSize", "mixinFactor", "cp", "mp", "maxGen", "natSel"],
+    "tweak_knapsack": [ "popSize", "mixinFactor", "cp", "mp", "maxGen", "natSel"],
+    "tweak_rastrigin": [ "popSize", "mixinFactor", "cp", "mp", "maxGen", "natSel"]
 ]
 
 Map<String, Double> optimums = [
@@ -16,6 +18,8 @@ Map<String, Double> optimums = [
     "initial_knapsack": KnapsackResources.medium.optimum,
     "initial_rastrigin": 0,
     "tweak_tsp": TSPResources.xqf131.bound,
+    "tweak_knapsack": KnapsackResources.medium.optimum,
+    "tweak_rastrigin": 0,
 ]
 
 def storage = Storage.instance

@@ -50,8 +50,14 @@
             ]
         },
         "tweak": {
+            "maxGen": 25,
             "mixinFactor": 0.25,
-            "popSize": 10
+            "natSel": "roulette",
+            "popSize": 10,
+            "probs": [
+                0.6,
+                0.1
+            ]
         }
     },
     "rastrigin": {
