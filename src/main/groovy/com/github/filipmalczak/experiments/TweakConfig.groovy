@@ -17,8 +17,7 @@ import com.github.filipmalczak.impl.rastrigin.Point
 import com.github.filipmalczak.impl.rastrigin.RastriginSetup
 import com.github.filipmalczak.impl.tsp.TSPSetup
 import com.github.filipmalczak.impl.tsp.Tour
-
-import groovy.json.JsonBuilder
+import static com.github.filipmalczak.experiments.DataSetConfig.*
 
 Storage.instance.init()
 
@@ -46,229 +45,232 @@ def vals = [
 ]
 
 //tsp
-new Explore(
-    "tweak_tsp",
-    3, 2,
-    [ "popSize", "mixinFactor", "probs", "maxGen", "natSel"],
-    tweakParamSets("tsp"),
-    vals,
-    { Map<String, Object> realConfig ->
-        def ctx = ContextCategory.toContext(TSPResources.xqf131)
-        EAUtils.run(new TSPSetup() {
-            @Override
-            int getGenerations() {
-                realConfig.maxGen
-            }
+if (executeDataset.tsp)
+    new Explore(
+        "tweak_tsp",
+        3, 2,
+        [ "popSize", "mixinFactor", "probs", "maxGen", "natSel"],
+        tweakParamSets("tsp"),
+        vals,
+        { Map<String, Object> realConfig ->
+            def ctx = ContextCategory.toContext(TSPResources.xqf131)
+            EAUtils.run(new TSPSetup() {
+                @Override
+                int getGenerations() {
+                    realConfig.maxGen
+                }
 
-            @Override
-            double getCrossProb() {
-                realConfig.probs[0]
-            }
+                @Override
+                double getCrossProb() {
+                    realConfig.probs[0]
+                }
 
-            @Override
-            double getMutProb() {
-                realConfig.probs[1]
-            }
+                @Override
+                double getMutProb() {
+                    realConfig.probs[1]
+                }
 
-            @Override
-            int getGendersCount() {
-                1
-            }
+                @Override
+                int getGendersCount() {
+                    1
+                }
 
-            @Override
-            def getModel() {
-                return null
-            }
+                @Override
+                def getModel() {
+                    return null
+                }
 
-            @Override
-            Context getContext(){
-                ctx
-            }
+                @Override
+                Context getContext(){
+                    ctx
+                }
 
-            @Override
-            int getPopulationSize() {
-                realConfig.popSize
-            }
+                @Override
+                int getPopulationSize() {
+                    realConfig.popSize
+                }
 
-            @Override
-            double getMixinFactor() {
-                realConfig.mixinFactor
-            }
+                @Override
+                double getMixinFactor() {
+                    realConfig.mixinFactor
+                }
 
-            @Override
-            NaturalSelectionOperator<Tour> getNaturalSelection() {
-                realConfig.natSel
-            }
+                @Override
+                NaturalSelectionOperator<Tour> getNaturalSelection() {
+                    realConfig.natSel
+                }
 
-            @Override
-            GenderSelectionOperator<Tour> getGenderSelection() {
-                new NoGender<Tour>(new RandomChoose<Tour>())
+                @Override
+                GenderSelectionOperator<Tour> getGenderSelection() {
+                    new NoGender<Tour>(new RandomChoose<Tour>())
+                }
+            })
+            ctx
+        },
+        { String paramName, def val, def realVal ->
+            Storage.instance.updateTree([tsp: [tweak: [(paramName): val]]])
+        },
+        { Map<Object, List> results ->
+            results.keySet().min { k ->
+                def ctx =  results[k].min { Context c -> c.globalBest.evaluate(c) }
+                ctx.globalBest.evaluate(ctx)
             }
-        })
-        ctx
-    },
-    { String paramName, def val, def realVal ->
-        Storage.instance.updateTree([tsp: [tweak: [(paramName): val]]])
-    },
-    { Map<Object, List> results ->
-        results.keySet().min { k ->
-            def ctx =  results[k].min { Context c -> c.globalBest.evaluate(c) }
-            ctx.globalBest.evaluate(ctx)
-        }
-    },
-    [ "initial_tsp" ]
-).run()
+        },
+        [ "initial_tsp" ]
+    ).run()
 
 //rastrigin
-new Explore(
-    "tweak_rastrigin",
-    3, 2,
-    [ "popSize", "mixinFactor", "probs", "maxGen", "natSel"],
-    tweakParamSets("rastrigin"),
-    vals,
-    { Map<String, Object> realConfig ->
-        def ctx = new Context()
-        EAUtils.run(new RastriginSetup() {
-            @Override
-            int getDimensions() {
-                return 10
-            }
+if (executeDataset.rastrigin)
+    new Explore(
+        "tweak_rastrigin",
+        3, 2,
+        [ "popSize", "mixinFactor", "probs", "maxGen", "natSel"],
+        tweakParamSets("rastrigin"),
+        vals,
+        { Map<String, Object> realConfig ->
+            def ctx = new Context()
+            EAUtils.run(new RastriginSetup() {
+                @Override
+                int getDimensions() {
+                    return 10
+                }
 
-            @Override
-            int getGenerations() {
-                realConfig.maxGen
-            }
+                @Override
+                int getGenerations() {
+                    realConfig.maxGen
+                }
 
-            @Override
-            double getCrossProb() {
-                realConfig.probs[0]
-            }
+                @Override
+                double getCrossProb() {
+                    realConfig.probs[0]
+                }
 
-            @Override
-            double getMutProb() {
-                realConfig.probs[1]
-            }
+                @Override
+                double getMutProb() {
+                    realConfig.probs[1]
+                }
 
-            @Override
-            int getGendersCount() {
-                1
-            }
+                @Override
+                int getGendersCount() {
+                    1
+                }
 
-            @Override
-            def getModel() {
-                return null
-            }
+                @Override
+                def getModel() {
+                    return null
+                }
 
-            @Override
-            Context getContext(){
-                ctx
-            }
+                @Override
+                Context getContext(){
+                    ctx
+                }
 
-            @Override
-            int getPopulationSize() {
-                realConfig.popSize
-            }
+                @Override
+                int getPopulationSize() {
+                    realConfig.popSize
+                }
 
-            @Override
-            double getMixinFactor() {
-                realConfig.mixinFactor
-            }
+                @Override
+                double getMixinFactor() {
+                    realConfig.mixinFactor
+                }
 
-            @Override
-            NaturalSelectionOperator<Point> getNaturalSelection() {
-                realConfig.natSel
-            }
+                @Override
+                NaturalSelectionOperator<Point> getNaturalSelection() {
+                    realConfig.natSel
+                }
 
-            @Override
-            GenderSelectionOperator<Tour> getGenderSelection() {
-                new NoGender<Point>(new RandomChoose<Point>())
+                @Override
+                GenderSelectionOperator<Tour> getGenderSelection() {
+                    new NoGender<Point>(new RandomChoose<Point>())
+                }
+            })
+            ctx
+        },
+        { String paramName, def val, def realVal ->
+            Storage.instance.updateTree([rastrigin: [tweak: [(paramName): val]]])
+        },
+        { Map<Object, List> results ->
+            results.keySet().min { k ->
+                def ctx =  results[k].min { Context c -> c.globalBest.evaluate(c) }
+                ctx.globalBest.evaluate(ctx)
             }
-        })
-        ctx
-    },
-    { String paramName, def val, def realVal ->
-        Storage.instance.updateTree([rastrigin: [tweak: [(paramName): val]]])
-    },
-    { Map<Object, List> results ->
-        results.keySet().min { k ->
-            def ctx =  results[k].min { Context c -> c.globalBest.evaluate(c) }
-            ctx.globalBest.evaluate(ctx)
-        }
-    },
-    [ "initial_rastrigin" ]
-).run()
+        },
+        [ "initial_rastrigin" ]
+    ).run()
 
 //knapsack
-new Explore(
-    "tweak_knapsack",
-    3, 2,
-    [ "popSize", "mixinFactor", "probs", "maxGen", "natSel"],
-    tweakParamSets("knapsack"),
-    vals,
-    { Map<String, Object> realConfig ->
-        def ctx = ContextCategory.toContext(KnapsackResources.medium)
-        EAUtils.run(new KnapsackSetup() {
+if (executeDataset.knapsack)
+    new Explore(
+        "tweak_knapsack",
+        3, 2,
+        [ "popSize", "mixinFactor", "probs", "maxGen", "natSel"],
+        tweakParamSets("knapsack"),
+        vals,
+        { Map<String, Object> realConfig ->
+            def ctx = ContextCategory.toContext(KnapsackResources.medium)
+            EAUtils.run(new KnapsackSetup() {
 
-            @Override
-            int getGenerations() {
-                realConfig.maxGen
-            }
+                @Override
+                int getGenerations() {
+                    realConfig.maxGen
+                }
 
-            @Override
-            double getCrossProb() {
-                realConfig.probs[0]
-            }
+                @Override
+                double getCrossProb() {
+                    realConfig.probs[0]
+                }
 
-            @Override
-            double getMutProb() {
-                realConfig.probs[1]
-            }
+                @Override
+                double getMutProb() {
+                    realConfig.probs[1]
+                }
 
-            @Override
-            int getGendersCount() {
-                1
-            }
+                @Override
+                int getGendersCount() {
+                    1
+                }
 
-            @Override
-            def getModel() {
-                return null
-            }
+                @Override
+                def getModel() {
+                    return null
+                }
 
-            @Override
-            Context getContext(){
-                ctx
-            }
+                @Override
+                Context getContext(){
+                    ctx
+                }
 
-            @Override
-            int getPopulationSize() {
-                realConfig.popSize
-            }
+                @Override
+                int getPopulationSize() {
+                    realConfig.popSize
+                }
 
-            @Override
-            double getMixinFactor() {
-                realConfig.mixinFactor
-            }
+                @Override
+                double getMixinFactor() {
+                    realConfig.mixinFactor
+                }
 
-            @Override
-            NaturalSelectionOperator<Point> getNaturalSelection() {
-                realConfig.natSel
-            }
+                @Override
+                NaturalSelectionOperator<Point> getNaturalSelection() {
+                    realConfig.natSel
+                }
 
-            @Override
-            GenderSelectionOperator<Tour> getGenderSelection() {
-                new NoGender<Point>(new RandomChoose<Point>())
+                @Override
+                GenderSelectionOperator<Tour> getGenderSelection() {
+                    new NoGender<Point>(new RandomChoose<Point>())
+                }
+            })
+            ctx
+        },
+        { String paramName, def val, def realVal ->
+            Storage.instance.updateTree([knapsack: [tweak: [(paramName): val]]])
+        },
+        { Map<Object, List> results ->
+            results.keySet().min { k ->
+                def ctx =  results[k].min { Context c -> c.globalBest.evaluate(c) }
+                ctx.globalBest.evaluate(ctx)
             }
-        })
-        ctx
-    },
-    { String paramName, def val, def realVal ->
-        Storage.instance.updateTree([knapsack: [tweak: [(paramName): val]]])
-    },
-    { Map<Object, List> results ->
-        results.keySet().min { k ->
-            def ctx =  results[k].min { Context c -> c.globalBest.evaluate(c) }
-            ctx.globalBest.evaluate(ctx)
-        }
-    },
-    [ "initial_knapsack" ]
-).run()
+        },
+        [ "initial_knapsack" ]
+    ).run()

@@ -9,6 +9,7 @@ import com.github.filipmalczak.impl.choose_operator.MaxDiversityChoose
 import com.github.filipmalczak.impl.choose_operator.RandomChoose
 import com.github.filipmalczak.impl.choose_operator.RankRouletteChoose
 import com.github.filipmalczak.impl.choose_operator.TourneyChoose
+import com.github.filipmalczak.impl.distance.SquareEuclideanDistance
 import com.github.filipmalczak.impl.natural_selection.NaturalSelection
 import com.github.filipmalczak.impl.rastrigin.Point
 import com.github.filipmalczak.impl.rastrigin.RastriginSetup
@@ -23,17 +24,7 @@ class WithGenderTest extends GroovyTestCase {
         new RankRouletteChoose<Point>(),
         new TourneyChoose<Point>(2)
     ]
-    def diversityChoose = new MaxDiversityChoose<Point>(new MaxDiversityChoose.Distance<Point>(){
-
-        @Override
-        double calculate(Point t1, Point t2) {
-            double out = 0.0
-            //euclidean-like
-            t1.coordinates.eachWithIndex { Comparable<Double> entry, int i ->
-                out += (entry - t2.coordinates[i])**2
-            }
-        }
-    })
+    def diversityChoose = new MaxDiversityChoose<Point>(new SquareEuclideanDistance())
 
     static abstract class TestSetup extends RastriginSetup implements AbstractTestSetup {
 

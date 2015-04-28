@@ -34,6 +34,30 @@ class RandomUtils {
         r.nextDouble()*(to-from)+from
     }
 
+    /**
+     *
+     * @param from
+     * @param to
+     * @return
+     */
+    static double normal(double from, double to){
+        double width = to - from
+        double mean = (to+from)/2
+        // 2*sigma holds ~95% of observations
+        double sigma = width/2
+        mean + sigma*r.nextGaussian()
+    }
+
+    /**
+     * [from, to)
+     * @param from
+     * @param to
+     * @return
+     */
+    static int random(int from, int to){
+        Math.min(to, Math.round(r.nextDouble())*(to-from)+from)
+    }
+
     static List<Boolean> randomBools(int size, int prob){
         if (size <= 0)
             return []

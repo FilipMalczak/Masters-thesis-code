@@ -9,7 +9,7 @@ class GenerateBitVectors extends AbstractGeneratePopulation<BitVector>{
     @Override
     BitVector generateWithoutGender(Context<BitVector> context) {
         new BitVector(
-            RandomUtils.randomBools(context.problemDefinition.model.data.size(), 500)
+            RandomUtils.randomBools(context.problemDefinition.model.data.size(), 80)
         )
     }
 }

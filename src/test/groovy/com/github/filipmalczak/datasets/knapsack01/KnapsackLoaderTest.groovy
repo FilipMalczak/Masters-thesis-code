@@ -22,6 +22,6 @@ class KnapsackLoaderTest extends GroovyTestCase {
     )
 
     void testLoading(){
-        assertEquals(expected, KnapsackTestResources.p01)
+        assertEquals(expected, KnapsackResources.p01)
     }
 }

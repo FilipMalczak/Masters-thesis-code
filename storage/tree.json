@@ -1,68 +1,20 @@
 {
     "knapsack": {
         "initial": {
-            "maxGen": 25,
-            "mixinFactor": 0.1,
+            "maxGen": 100,
+            "mixinFactor": 0.25,
             "natSel": "roulette",
-            "popSize": 10,
+            "popSize": 100,
             "probs": [
                 0.6,
                 0.1
-            ]
-        },
-        "tweak": {
-            "maxGen": 25,
-            "mixinFactor": 0.1,
-            "natSel": "roulette",
-            "popSize": 10,
-            "probs": [
-                0.6,
-                0.1
-            ]
-        }
-    },
-    "rastrigin": {
-        "initial": {
-            "maxGen": 100,
-            "mixinFactor": 0,
-            "natSel": "roulette",
-            "popSize": 10,
-            "probs": [
-                0.8,
-                0.3
-            ]
-        },
-        "tweak": {
-            "maxGen": 100,
-            "mixinFactor": 0.05,
-            "natSel": "roulette",
-            "popSize": 5,
-            "probs": [
-                0.75,
-                0.35
             ]
         }
     },
     "tsp": {
         "initial": {
-            "maxGen": 100,
-            "mixinFactor": 0,
-            "natSel": "roulette",
-            "popSize": 10,
-            "probs": [
-                0.6,
-                0.3
-            ]
-        },
-        "tweak": {
-            "maxGen": 100,
-            "mixinFactor": 0,
-            "natSel": "roulette",
-            "popSize": 5,
-            "probs": [
-                0.65,
-                0.35
-            ]
+            "mixinFactor": 0.0,
+            "popSize": 100
         }
     }
 }

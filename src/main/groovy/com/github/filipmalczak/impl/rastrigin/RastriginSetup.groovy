@@ -25,5 +25,6 @@ abstract class RastriginSetup extends BaseEASetup<Point>{
     @Override
     MutationOperator<Point> getMutation() {
         new MultiplyMutation()
+//        new SwapMutation()
     }
 }

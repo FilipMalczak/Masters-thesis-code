@@ -1,6 +1,5 @@
 package com.github.filipmalczak.heuristics
 
-//todo: add phenotype (like bothcost and weight in knapsack)
 interface Specimen extends Serializable{
     /**
      * Evaluation function for minimalising task.
@@ -9,6 +8,8 @@ interface Specimen extends Serializable{
      * <strong>MEMOIZE IT WHENEVER POSSIBLE!</strong>
      */
     double evaluate(Context context)
+
+    def getPhenotype(Context context)
 
     /**
      *

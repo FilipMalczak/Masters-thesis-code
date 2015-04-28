@@ -41,6 +41,6 @@ class TSPLoaderTest extends GroovyTestCase {
     }
 
     void testLoadPoints() {
-        assert expected == TSPTestResources.sahara.points
+        assert expected == TSPResources.sahara.points
     }
 }

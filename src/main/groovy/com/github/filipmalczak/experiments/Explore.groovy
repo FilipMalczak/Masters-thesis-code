@@ -42,7 +42,11 @@ class Explore {
     }
 
     void run(){
-        log.info "Exploration experiment: $name"
+        log.info "|-----------------------------------------------------------|"
+        log.info "|                                                           |"
+        log.info "| Exploration experiment: $name${" "*(33-name.size())} |"
+        log.info "|                                                           |"
+        log.info "|-----------------------------------------------------------|"
         Map<String, Object> current = [:]
         paramSets.each { k, v ->
             current[k] =  v[0]
@@ -50,7 +54,9 @@ class Explore {
         def gpool = new GParsPool()
         def pool = gpool.createPool(poolSize)
         reruns.times {
-            log.info("Run $it")
+            log.info "#############"
+            log.info("# Run $it")
+            log.info "#############"
             order.each { String param ->
                 Map<Object, List> paramResults = [:].withDefault { [].asSynchronized() }.asSynchronized()
                 gpool.withExistingPool(pool) {

@@ -22,6 +22,10 @@ abstract class BaseEASetup<S extends Specimen> implements EASetup<S>{
 
     abstract def getModel()
 
+    boolean calculatePopulationStats(){
+        false
+    }
+
     @Override
     ContextHandler<S> getContextHandler() {
         new Handler<S>()

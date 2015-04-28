@@ -12,8 +12,6 @@ class Context<S extends Specimen> implements Serializable{
     int mutProb = 0
     int crossProb = 0
 
-
-
     // fields for measuring time
     Date startTime = null
     Date endTime = null
@@ -21,6 +19,8 @@ class Context<S extends Specimen> implements Serializable{
     // history for analysis
     S globalBest = null
 
+
+    //history, optional
     List<Double> avgHistory = []
     List<Double> varianceHistory = []
     List<Double> bestHistory = []

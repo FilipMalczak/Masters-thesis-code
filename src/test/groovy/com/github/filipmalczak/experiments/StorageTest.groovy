@@ -6,6 +6,6 @@ class StorageTest extends GroovyTestCase {
         def x = [a: 1, b: [c: 3, d: [4, 5]]]
         def y = [b: [d: 6]]
         Storage.recursiveMerge(x, y)
-        assert x == [a: 1, b: [c: 3, d: [4, 5, 6]]]
+        assert x == [a: 1, b: [c: 3, d: [6]]]
     }
 }

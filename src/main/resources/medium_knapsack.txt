@@ -1,4 +1,5 @@
-# source: https://raw.githubusercontent.com/jaredtking/knapsack-lisp/master/datasets/medium
+# Source: https://raw.githubusercontent.com/jaredtking/knapsack-lisp/master/datasets/medium
+# Available to download 26.04.15
 # A dataset for the 0-1 knapsack problem retrieved from
 # http://homepage.ntlworld.com/walter.barker2/Knapsack%20Problem.htm
 # http://homepage.ntlworld.com/walter.barker2/Knapsack%20data/1%20dimension/Medium/KNAPDATA.TXT

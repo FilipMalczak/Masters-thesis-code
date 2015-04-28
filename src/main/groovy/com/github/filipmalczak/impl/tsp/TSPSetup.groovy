@@ -20,7 +20,7 @@ abstract class TSPSetup extends BaseEASetup<Tour>{
 
     @Override
     MutationOperator<Tour> getMutation() {
-        new SwapMutation()
+        new ReverseSequenceMutation()
     }
 
 

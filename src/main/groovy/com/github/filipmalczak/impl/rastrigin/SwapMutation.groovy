@@ -15,6 +15,6 @@ class SwapMutation implements MutationOperator<Point> {
             idx2 = RandomUtils.random(out.coordinates.size())
         out.coordinates[idx1] = point.coordinates[idx2]
         out.coordinates[idx2] = point.coordinates[idx1]
-        out
+        [ out ]
     }
 }

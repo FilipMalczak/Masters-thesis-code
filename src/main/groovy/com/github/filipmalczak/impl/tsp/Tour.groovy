@@ -4,6 +4,7 @@ import com.github.filipmalczak.datasets.tsp.TSPModel
 import com.github.filipmalczak.heuristics.Context
 import com.github.filipmalczak.heuristics.Specimen
 
+import groovy.json.JsonBuilder
 import groovy.transform.Canonical
 import groovy.transform.Memoized
 
@@ -31,6 +32,11 @@ class Tour implements Specimen{
     @Override
     double evaluate(Context context) {
         getLength(pointNumbers, context.problemDefinition.model)
+    }
+
+    @Override
+    def getPhenotype(Context context) {
+        new JsonBuilder([eval: evaluate(context)]).toString()
     }
 
     @Override

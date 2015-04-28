@@ -6,6 +6,8 @@ import groovy.io.FileType
 import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
 
+import java.util.concurrent.atomic.AtomicInteger
+
 @Singleton
 class Storage {
     boolean initialized = false
@@ -25,36 +27,18 @@ class Storage {
         parts.join("_")
     }
 
-    void init(){
-        if (!initialized){
-            def storageConfig = new Properties()
-            storageConfig.load(this.class.classLoader.getResourceAsStream("storage.properties"))
-            baseDir = new File(storageConfig.getProperty("baseDir"))
-            if (!baseDir.exists())
-                baseDir.mkdirs()
-            initialized = true
+    static File ensuredDir(File dir){
+        if (!dir.exists())
+            dir.mkdirs()
+        dir
+    }
+
+    static File ensuredFile(Map args=[:], File file){
+        if (!file.exists()) {
+            ensuredDir(file.parentFile)
+            args.each { k, v -> file."$k"=v }
         }
-    }
-
-    File getResultsDir(){
-        def out = new File(baseDir, "results")
-        if (!out.exists())
-            out.mkdirs()
-        out
-    }
-
-    File getTreeFile(){
-        def out = new File(baseDir, "tree.json")
-        if (!out.exists())
-            out.text = new JsonBuilder([:]).toPrettyString()
-        out
-    }
-
-    File getSummariesDir(){
-        def out = new File(baseDir, "summaries")
-        if (!out.exists())
-            out.mkdirs()
-        out
+        file
     }
 
     static void recursiveMerge(Map map1, Map map2){
@@ -72,6 +56,83 @@ class Storage {
         }
     }
 
+    void init(){
+        if (!initialized){
+            def storageConfig = new Properties()
+            storageConfig.load(this.class.classLoader.getResourceAsStream("storage.properties"))
+            baseDir = new File(storageConfig.getProperty("baseDir"))
+            if (!baseDir.exists())
+                baseDir.mkdirs()
+            initialized = true
+            tempBaseDir.deleteOnExit()
+        }
+    }
+
+    @Lazy File resultsDir = ensuredDir(new File(baseDir, "results"))
+
+    @Lazy File treeFile = ensuredFile(new File(baseDir, "tree.json"), text: new JsonBuilder([:]).toPrettyString())
+
+    @Lazy File summariesDir = ensuredDir(new File(baseDir, "summaries"))
+
+    @Lazy File plotsDir = ensuredDir(new File(baseDir, "plots"))
+
+    @Lazy File tempBaseDir = ensuredDir(File.createTempDir())
+
+    File experimentDir(String name){
+        ensuredDir(new File(resultsDir, name))
+    }
+
+    File resultFile(String experimentName, String key){
+        new File(experimentDir(experimentName), key+".result")
+    }
+
+    File summaryFile(String name){
+        ensuredFile(new File(summariesDir, name), text: "")
+    }
+
+    File plotSubdir(String experimentName, String subdir){
+        ensuredDir(new File(new File(plotsDir, experimentName), subdir))
+    }
+
+    File plotFile(String experimentName, String subdir, String key){
+        new File(plotSubdir(experimentName, subdir), key)
+    }
+
+    protected final AtomicInteger dirCounter = new AtomicInteger(-1)
+    protected final AtomicInteger fileCounter = new AtomicInteger(-1)
+    protected final List<File> availableTempFiles = [].asSynchronized()
+    protected final List<File> usedTempFiles = [].asSynchronized()
+
+
+
+    public <T> T withTempDir(Closure<T> closure){
+        def number = dirCounter.addAndGet(1)
+        def dir = ensuredDir(new File(tempBaseDir, "$number"))
+        try {
+            return closure.call(dir)
+        } finally {
+            dir.delete()
+        }
+    }
+
+    public <T> T withTempFile(Closure<T> closure){
+        def file
+        try {
+            file = availableTempFiles.pop()
+        } catch (NoSuchElementException nsee) {
+            def number = fileCounter.addAndGet(1)
+            file = ensuredFile(tempBaseDir, "$number", bytes: [])
+            usedTempFiles.add(file)
+        }
+        try {
+            return closure.call(file)
+        } finally {
+            file.bytes = []
+            usedTempFiles.remove(file)
+            availableTempFiles.add(file)
+        }
+    }
+
     void updateTree(Map toMerge){
         Map upToDate = treeSnapshot
         recursiveMerge(upToDate, toMerge)
@@ -80,24 +141,6 @@ class Storage {
 
     Map getTreeSnapshot(){
         slurper.parse(treeFile)
-    }
-
-    File experimentDir(String name){
-        return new File(resultsDir, name)
-    }
-
-    File resultFile(String experimentName, String key){
-        def dir = experimentDir(experimentName)
-        if (!dir.exists())
-            dir.mkdirs()
-        new File(dir, key+".result")
-    }
-
-    File summaryFile(String name){
-        def out = new File(summariesDir, name)
-        if (!out.exists())
-            out.text = ""
-        out
     }
 
     def getResult(String experimentName, String key){
@@ -129,8 +172,12 @@ class Storage {
     void eachResult(String experimentName, Closure c){
         experimentDir(experimentName).eachFile(FileType.FILES) { File f ->
             if (f.name.endsWith("result")) {
-                def result = deserialize(f.bytes)
-                c.call(f.name.replaceAll("[.]result", "").split("_").toList(), result)
+                try {
+                    def result = deserialize(f.bytes)
+                    c.call(f.name.replaceAll("[.]result", "").split("_").toList(), result)
+                } catch (Throwable t){
+                    throw t
+                }
             }
 
         }

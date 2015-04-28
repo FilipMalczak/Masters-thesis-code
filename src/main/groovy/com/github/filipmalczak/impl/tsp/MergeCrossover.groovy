@@ -34,6 +34,8 @@ class MergeCrossover implements CrossoverOperator<Tour>{
             if (!out2.contains(it))
                 out2.add(it)
         }
+//        assert out1.size() == out1.toSet().size()
+//        assert out2.size() == out2.toSet().size()
         [ new Tour(out1), new  Tour(out2) ]
     }
 }

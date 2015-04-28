@@ -1,7 +1,6 @@
 package com.github.filipmalczak.impl.tsp
 
 import com.github.filipmalczak.datasets.tsp.TSPResources
-import com.github.filipmalczak.datasets.tsp.TSPTestResources
 import com.github.filipmalczak.ea.utils.EAUtils
 import com.github.filipmalczak.impl.AbstractE2ESetup
 import com.github.filipmalczak.impl.AbstractTestSetup
@@ -18,7 +17,7 @@ class TSPE2ETest extends GroovyTestCase {
                 new TestSetup(){
                     @Override
                     def getModel() {
-                        TSPTestResources.sahara
+                        TSPResources.sahara
                     }
                 }
             )
