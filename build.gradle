@@ -30,8 +30,7 @@ def toRun = [
     x: "X",
     X: "X",
     plot: "Plotter",
-    small: "SmallDataSetInitialConfig",
-    big: "BigDataSetInitialConfig"
+    small: "InitialConfig"
 ]
 
 def target = project.hasProperty("target") && toRun.containsKey(project.properties.target) ?

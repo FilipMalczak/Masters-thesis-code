@@ -53,7 +53,7 @@ if (executeDataset.tsp)
         tweakParamSets("tsp"),
         vals,
         { Map<String, Object> realConfig ->
-            def ctx = ContextCategory.toContext(TSPResources.xqf131)
+            def ctx = ContextCategory.toContext(TSPResources.sahara)
             EAUtils.run(new TSPSetup() {
                 @Override
                 int getGenerations() {
@@ -112,91 +112,11 @@ if (executeDataset.tsp)
         },
         { Map<Object, List> results ->
             results.keySet().min { k ->
-                def ctx =  results[k].min { Context c -> c.globalBest.evaluate(c) }
-                ctx.globalBest.evaluate(ctx)
+                //best avg
+                results[k].sum() { Context c -> c.globalBest.evaluate(c) } / results[k].size()
             }
         },
         [ "initial_tsp" ]
-    ).run()
-
-//rastrigin
-if (executeDataset.rastrigin)
-    new Explore(
-        "tweak_rastrigin",
-        3, 2,
-        [ "popSize", "mixinFactor", "probs", "maxGen", "natSel"],
-        tweakParamSets("rastrigin"),
-        vals,
-        { Map<String, Object> realConfig ->
-            def ctx = new Context()
-            EAUtils.run(new RastriginSetup() {
-                @Override
-                int getDimensions() {
-                    return 10
-                }
-
-                @Override
-                int getGenerations() {
-                    realConfig.maxGen
-                }
-
-                @Override
-                double getCrossProb() {
-                    realConfig.probs[0]
-                }
-
-                @Override
-                double getMutProb() {
-                    realConfig.probs[1]
-                }
-
-                @Override
-                int getGendersCount() {
-                    1
-                }
-
-                @Override
-                def getModel() {
-                    return null
-                }
-
-                @Override
-                Context getContext(){
-                    ctx
-                }
-
-                @Override
-                int getPopulationSize() {
-                    realConfig.popSize
-                }
-
-                @Override
-                double getMixinFactor() {
-                    realConfig.mixinFactor
-                }
-
-                @Override
-                NaturalSelectionOperator<Point> getNaturalSelection() {
-                    realConfig.natSel
-                }
-
-                @Override
-                GenderSelectionOperator<Tour> getGenderSelection() {
-                    new NoGender<Point>(new RandomChoose<Point>())
-                }
-            })
-            ctx
-        },
-        { String paramName, def val, def realVal ->
-            Storage.instance.updateTree([rastrigin: [tweak: [(paramName): val]]])
-        },
-        { Map<Object, List> results ->
-            results.keySet().min { k ->
-                def ctx =  results[k].min { Context c -> c.globalBest.evaluate(c) }
-                ctx.globalBest.evaluate(ctx)
-            }
-        },
-        [ "initial_rastrigin" ]
     ).run()
 
 //knapsack
@@ -268,8 +188,8 @@ if (executeDataset.knapsack)
         },
         { Map<Object, List> results ->
             results.keySet().min { k ->
-                def ctx =  results[k].min { Context c -> c.globalBest.evaluate(c) }
-                ctx.globalBest.evaluate(ctx)
+                //best avg
+                results[k].sum() { Context c -> c.globalBest.evaluate(c) } / results[k].size()
             }
         },
         [ "initial_knapsack" ]

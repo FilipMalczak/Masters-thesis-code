@@ -2,19 +2,39 @@
     "knapsack": {
         "initial": {
             "maxGen": 100,
-            "mixinFactor": 0.25,
+            "mixinFactor": 0.1,
             "natSel": "roulette",
             "popSize": 100,
             "probs": [
                 0.6,
                 0.1
             ]
+        },
+        "tweak": {
+            "mixinFactor": 0.05,
+            "popSize": 110
         }
     },
     "tsp": {
         "initial": {
-            "mixinFactor": 0.0,
-            "popSize": 100
+            "maxGen": 100,
+            "mixinFactor": 0,
+            "natSel": "roulette",
+            "popSize": 50,
+            "probs": [
+                0.6,
+                0.1
+            ]
+        },
+        "tweak": {
+            "maxGen": 110,
+            "mixinFactor": 0,
+            "natSel": "roulette",
+            "popSize": 50,
+            "probs": [
+                0.6,
+                0.15
+            ]
         }
     }
 }

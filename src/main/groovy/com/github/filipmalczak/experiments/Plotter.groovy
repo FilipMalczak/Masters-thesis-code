@@ -5,6 +5,7 @@ import com.github.filipmalczak.heuristics.Context
 @Singleton
 class Plotter {
     static final Map bounds = [
+        :
 //        initial_tsp: [0, 150_000],
 //        initial_knapsack: [0, 250_000]
     ]

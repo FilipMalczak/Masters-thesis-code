@@ -10,7 +10,7 @@ class DataSetConfig {
 
     static executeStage = [
         initial: true,
-        tweak: false,
+        tweak: true,
         csv: true
     ]
 }
