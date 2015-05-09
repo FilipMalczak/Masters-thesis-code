@@ -1,4 +1,0 @@
-Those results were obtained with evaluation function and EA operators as in commit
-cc252e68dea5324a62dc1f019b84c453bc7ea472
-
-See results/comment.txt for explanation on "failed_initial_knapsack".

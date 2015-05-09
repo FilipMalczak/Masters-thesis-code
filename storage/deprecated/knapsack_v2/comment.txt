@@ -1,3 +1,0 @@
-Those results were obtained with second version of mutation (with different probabilities for each bit,
-depending on over-/underload and bit being 1 or 0), bit vector generation with probability of lit bit = 0.08
-and evaluation that didn't use abs() on over-/underload.

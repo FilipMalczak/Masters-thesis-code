@@ -1,5 +1,0 @@
-This results were obtained, when I had plus sign instead of minus sign in rastrigins function (in cosinus argument).
-Commit:
-18224e3f058d155a84cce2038e5614323a325094
-
-"failed" is explained in another _v1
