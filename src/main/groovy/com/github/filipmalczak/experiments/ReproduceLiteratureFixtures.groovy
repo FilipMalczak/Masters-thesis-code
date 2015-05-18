@@ -1,5 +1,8 @@
 package com.github.filipmalczak.experiments
 
+import com.github.filipmalczak.datasets.ContextCategory
+import com.github.filipmalczak.datasets.knapsack01.KnapsackResources
+import com.github.filipmalczak.datasets.tsp.TSPResources
 import com.github.filipmalczak.ea.operators.GenderSelectionOperator
 import com.github.filipmalczak.ea.utils.EAUtils
 import com.github.filipmalczak.heuristics.Context
@@ -42,6 +45,13 @@ class ReproduceLiteratureFixtures {
         )
     }
 
+    static def getContext(String modelName){
+        ContextCategory.toContext([
+            tsp: TSPResources.sahara,
+            knapsack: KnapsackResources.medium
+        ][modelName])
+    }
+
     static void doSexualGA(String modelName, def gpool, def pool, int repeats = 5) {
         String expName = modelName + "_sexual_ga"
         gpool.withExistingPool(pool) {
@@ -55,7 +65,8 @@ class ReproduceLiteratureFixtures {
                                 Context result = Storage.instance.getResult(expName, key)
                                 if (result == null) {
                                     log.info "Key $key (experiment: $expName) not found, running."
-                                    result = EAUtils.run(
+                                    result = getContext(modelName)
+                                    EAUtils.run(
                                         getSetup(
                                             modelName,
                                             iteration: i,
@@ -66,7 +77,8 @@ class ReproduceLiteratureFixtures {
                                                     (1): chooseOperators[choose2]
                                                 ],
                                                 false
-                                            )
+                                            ),
+                                            context: result
                                         )
                                     )
                                     Storage.instance.putResult(expName, key, result)
@@ -94,7 +106,8 @@ class ReproduceLiteratureFixtures {
                         Context result = Storage.instance.getResult(expName, key)
                         if (result == null) {
                             log.info "Key $key (experiment: $expName) not found, running."
-                            result = EAUtils.run(
+                            result = getContext(modelName)
+                            EAUtils.run(
                                 getSetup(
                                     modelName,
                                     iteration: i,
@@ -105,7 +118,8 @@ class ReproduceLiteratureFixtures {
                                             (1): chooseOperators[choose]
                                         ],
                                         true
-                                    )
+                                    ),
+                                    context: result
                                 )
                             )
                             Storage.instance.putResult(expName, key, result)

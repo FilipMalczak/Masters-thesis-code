@@ -74,7 +74,7 @@ class EAUtils {
                 contextHandler: new Handler(rest.calculateGenerationStats ?: false),
                 cp: new ConstCP(rest.crossProb),
                 mp: new ConstMP(rest.mutProb),
-                context: rest.model!=null ? rest.model.toContext() : new Context()
+                context: rest.context ?: rest.model!=null ? rest.model.toContext() : new Context()
             ]
             return out
         }
