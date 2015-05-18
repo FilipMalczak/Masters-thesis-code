@@ -1,10 +1,14 @@
 plugins {
+    id 'java'
     id 'groovy'
     id 'idea'
     id 'maven'
     id 'jacoco'
     id 'application'
 }
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
