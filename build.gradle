@@ -34,7 +34,8 @@ def toRun = [
     research: "DoResearch",
     tables: "AllResearchToTables",
     reproduce: "ReproduceLiterature",
-    literature: "ReproduceLiterature"
+    literature: "ReproduceLiterature",
+    literatureTables: "LiteratureToCSV"
 ]
 
 def target = project.hasProperty("target") && toRun.containsKey(project.properties.target) ?
