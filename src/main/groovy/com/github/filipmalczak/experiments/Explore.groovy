@@ -25,16 +25,23 @@ class Explore {
     int poolSize = 9
 
     Map<String, Object> realize(Map<String, Object> config){
+        realize(values, config)
+    }
+
+    static Map<String, Object> realize(Map<String, Map<String, Object>> valuesMap, Map<String, Object> config){
         def out = [:]
         config.each { k, v ->
-            out[k] = values.containsKey(k) ? values[k][v] : v
+            out[k] = valuesMap.containsKey(k) ? valuesMap[k][v] : v
         }
         out
     }
 
-
     String key(Map<String, Object> config){
-        Storage.key((order+["iteration"]).collect {
+        key(order, config)
+    }
+
+    static String key(List<String> paramOrder, Map<String, Object> config){
+        Storage.key((paramOrder+["iteration"]).collect {
             config[it] instanceof List ?
                 Storage.key(config[it].collect { it2 -> "$it2" }) :
                 "${config[it]}"}
@@ -65,11 +72,11 @@ class Explore {
                             (0..repeats - 1).eachParallel { int i ->
                                 Map localConfig = current + [iteration: i, (param): val]
                                 String k = key(localConfig)
-                                log.info("${Thread.currentThread().name}: Looking for key $k in experiment $name")
+                                log.info("Looking for key $k in experiment $name")
                                 def result = Storage.instance.getResult(name, k)
                                 if (result == null) {
                                     def reusableExperiment = reuseResultsFrom.find {
-                                        log.info("${Thread.currentThread().name}: Looking for key $k in experiment $it")
+                                        log.info("Looking for key $k in experiment $it")
                                         Storage.instance.getResult(it, k)
                                     }
                                     if (reusableExperiment) {
@@ -81,7 +88,7 @@ class Explore {
                                 }
 
                                 if (result == null) {
-                                    log.info "${Thread.currentThread().name}: No saved result, calling body"
+                                    log.info "No saved result, calling body"
                                     result = body.call(realize(localConfig))
                                     Storage.instance.putResult(name, k, result)
                                 }

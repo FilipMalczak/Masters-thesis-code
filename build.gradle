@@ -30,7 +30,9 @@ def toRun = [
     x: "X",
     X: "X",
     plot: "Plotter",
-    small: "InitialConfig"
+    small: "InitialConfig",
+    research: "DoResearch",
+    tables: "AllResearchToTables"
 ]
 
 def target = project.hasProperty("target") && toRun.containsKey(project.properties.target) ?
@@ -38,6 +40,8 @@ def target = project.hasProperty("target") && toRun.containsKey(project.properti
     "all"
 
 mainClassName =  "com.github.filipmalczak.experiments.${toRun[target]}"
+
+//mainClassName =  "com.github.filipmalczak.new_experiments.KnapsackSuite"
 
 dependencies {
     // Common dependencies
@@ -48,7 +52,7 @@ dependencies {
 //    compile 'de.erichseifert.gral:gral-core:0.10'
     testCompile 'junit:junit:4.11'
 
-    runtime 'org.slf4j:slf4j-log4j12:1.7.2'
+//    runtime 'org.slf4j:slf4j-log4j12:1.7.2'
 
 }
 

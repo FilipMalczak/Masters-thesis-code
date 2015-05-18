@@ -9,7 +9,7 @@ import com.github.filipmalczak.ea.utils.BaseEASetup
 abstract class KnapsackSetup extends BaseEASetup{
     @Override
     GeneratePopulation getGeneratePopulation() {
-        new GenerateBitVectors()
+        new GenerateBitVectors(gendersCount)
     }
 
     @Override

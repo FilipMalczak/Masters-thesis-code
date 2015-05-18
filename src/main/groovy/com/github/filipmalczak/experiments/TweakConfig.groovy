@@ -17,6 +17,11 @@ import com.github.filipmalczak.impl.rastrigin.Point
 import com.github.filipmalczak.impl.rastrigin.RastriginSetup
 import com.github.filipmalczak.impl.tsp.TSPSetup
 import com.github.filipmalczak.impl.tsp.Tour
+
+import static com.github.filipmalczak.ea.utils.EAUtils.baseSetup
+import static com.github.filipmalczak.ea.utils.EAUtils.knapsackSetup
+import static com.github.filipmalczak.ea.utils.EAUtils.run
+import static com.github.filipmalczak.ea.utils.EAUtils.tspSetup
 import static com.github.filipmalczak.experiments.DataSetConfig.*
 
 Storage.instance.init()
@@ -53,59 +58,18 @@ if (executeDataset.tsp)
         tweakParamSets("tsp"),
         vals,
         { Map<String, Object> realConfig ->
-            def ctx = ContextCategory.toContext(TSPResources.sahara)
-            EAUtils.run(new TSPSetup() {
-                @Override
-                int getGenerations() {
-                    realConfig.maxGen
-                }
-
-                @Override
-                double getCrossProb() {
-                    realConfig.probs[0]
-                }
-
-                @Override
-                double getMutProb() {
-                    realConfig.probs[1]
-                }
-
-                @Override
-                int getGendersCount() {
-                    1
-                }
-
-                @Override
-                def getModel() {
-                    return null
-                }
-
-                @Override
-                Context getContext(){
-                    ctx
-                }
-
-                @Override
-                int getPopulationSize() {
-                    realConfig.popSize
-                }
-
-                @Override
-                double getMixinFactor() {
-                    realConfig.mixinFactor
-                }
-
-                @Override
-                NaturalSelectionOperator<Tour> getNaturalSelection() {
-                    realConfig.natSel
-                }
-
-                @Override
-                GenderSelectionOperator<Tour> getGenderSelection() {
-                    new NoGender<Tour>(new RandomChoose<Tour>())
-                }
-            })
-            ctx
+            def setup = baseSetup(tspSetup(
+                generations: realConfig.maxGen,
+                crossProb: realConfig.probs[0],
+                mutProb: realConfig.probs[1],
+                gendersCount: 1,
+                populationSize: realConfig.popSize,
+                mixinFactor: realConfig.mixinFactor,
+                naturalSelection: realConfig.natSel,
+                genderSelection: new NoGender<Tour>(new RandomChoose<Tour>())
+            ))
+            run(setup)
+            setup.context
         },
         { String paramName, def val, def realVal ->
             Storage.instance.updateTree([tsp: [tweak: [(paramName): val]]])
@@ -128,60 +92,18 @@ if (executeDataset.knapsack)
         tweakParamSets("knapsack"),
         vals,
         { Map<String, Object> realConfig ->
-            def ctx = ContextCategory.toContext(KnapsackResources.medium)
-            EAUtils.run(new KnapsackSetup() {
-
-                @Override
-                int getGenerations() {
-                    realConfig.maxGen
-                }
-
-                @Override
-                double getCrossProb() {
-                    realConfig.probs[0]
-                }
-
-                @Override
-                double getMutProb() {
-                    realConfig.probs[1]
-                }
-
-                @Override
-                int getGendersCount() {
-                    1
-                }
-
-                @Override
-                def getModel() {
-                    return null
-                }
-
-                @Override
-                Context getContext(){
-                    ctx
-                }
-
-                @Override
-                int getPopulationSize() {
-                    realConfig.popSize
-                }
-
-                @Override
-                double getMixinFactor() {
-                    realConfig.mixinFactor
-                }
-
-                @Override
-                NaturalSelectionOperator<Point> getNaturalSelection() {
-                    realConfig.natSel
-                }
-
-                @Override
-                GenderSelectionOperator<Tour> getGenderSelection() {
-                    new NoGender<Point>(new RandomChoose<Point>())
-                }
-            })
-            ctx
+            def setup = baseSetup(knapsackSetup(
+                generations: realConfig.maxGen,
+                crossProb: realConfig.probs[0],
+                mutProb: realConfig.probs[1],
+                gendersCount: 1,
+                populationSize: realConfig.popSize,
+                mixinFactor: realConfig.mixinFactor,
+                naturalSelection: realConfig.natSel,
+                genderSelection: new NoGender<Tour>(new RandomChoose<Tour>())
+            ))
+            run(setup)
+            setup.context
         },
         { String paramName, def val, def realVal ->
             Storage.instance.updateTree([knapsack: [tweak: [(paramName): val]]])

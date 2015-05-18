@@ -13,3 +13,7 @@ if (executeStage.tweak) {
     if (executeStage.csv)
         new ToCSV().run()
 }
+
+
+if (executeStage.research)
+    new DoResearch().run()

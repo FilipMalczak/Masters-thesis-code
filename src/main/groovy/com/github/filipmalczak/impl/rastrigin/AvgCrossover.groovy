@@ -22,6 +22,6 @@ class AvgCrossover implements CrossoverOperator<Point>{
         out.coordinates.size().times { i ->
             out.coordinates[i] /= out.coordinates.size()
         }
-        [ out ]
+        return [out]
     }
 }

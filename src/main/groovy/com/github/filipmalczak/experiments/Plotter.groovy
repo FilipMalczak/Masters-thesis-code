@@ -84,19 +84,24 @@ plot '${dataPath}' using 1:3:2:6:5:xticlabels(8) with candlesticks title 'Varian
 
     void plotAll(boolean title=true){
         Storage.instance.eachExperiment { String name, File dir ->
-            Storage.instance.eachResult(name) { List<String> params, Context ctx ->
-                try {
-                    plotIt(name, Storage.key(params), title)
-                }catch (Throwable t){
-                    throw t
-                }
+            plotExperiment(name, title)
+        }
+    }
+
+    void plotExperiment(String name, boolean title = true){
+        Storage.instance.eachResult(name) { List<String> params, Context ctx ->
+            try {
+                plotIt(name, Storage.key(params), title)
+            }catch (Throwable t){
+                throw t
             }
         }
     }
 
     static void main(String... args){
         Storage.instance.init()
-        Plotter.instance.plotAll(true)
+//        Plotter.instance.plotAll(true)
 //        Plotter.instance.plotIt("initial_tsp", "100_0.0_0.8_0.1_100_roulette_0")
+        Plotter.instance.plotExperiment("tsp")
     }
 }

@@ -16,7 +16,11 @@ class MergeCrossover implements CrossoverOperator<Tour>{
      */
     @Override
     List<Tour> crossOver(List<Tour> parents, Context context) {
-//        assert parents.size() == 2
+//        try {
+//            assert parents.size() == 2
+//        } catch (Throwable t){
+//            throw t
+//        }
         Tour tour1 = parents[0].copy()
         Tour tour2 = parents[1].copy()
         def cutPoint = (random(0.25, 0.75)* parents[0].pointNumbers.size()) as int
@@ -36,6 +40,6 @@ class MergeCrossover implements CrossoverOperator<Tour>{
         }
 //        assert out1.size() == out1.toSet().size()
 //        assert out2.size() == out2.toSet().size()
-        [ new Tour(out1), new  Tour(out2) ]
+        [ new Tour(out1, tour1.gender), new  Tour(out2, tour2.gender) ]
     }
 }

@@ -1,0 +1,41 @@
+\documentclass{article}
+
+\usepackage{longtable}
+
+\begin{document}
+
+\begin{longtable}{|ll|ll|}
+\caption{Usrednione wyniki dla problemu komiwojazera (optimum: 27603)} \\
+\hline
+\input{tsp_stats.tex}
+\hline
+\end{longtable}
+
+\clearpage
+
+\begin{longtable}{|ll|ll|}
+\caption{Usrednione wyniki dla problemu plecakowego (optimum: -1173)} \\
+\hline
+\input{knapsack_stats.tex}
+\hline
+\end{longtable}
+
+\clearpage
+
+\begin{longtable}{|lll|ll|}
+\caption{Pelne wyniki dla problemu komiwojazera (optimum: 27603)} \\
+\hline
+\input{tsp.tex}
+\hline
+\end{longtable}
+
+\clearpage
+
+\begin{longtable}{|lll|ll|}
+\caption{Pelne wyniki dla problemu plecakowego (optimum: -1173)} \\
+\hline
+\input{knapsack.tex}
+\hline
+\end{longtable}
+
+\end{document}

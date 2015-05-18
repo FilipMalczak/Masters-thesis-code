@@ -5,6 +5,10 @@ package com.github.filipmalczak.utils
 class RandomUtils {
     static Random r = new Random()
 
+    static void init(long seed){
+        r = new Random(seed)
+    }
+
     static boolean happens(int probability) {
         Math.round(r.nextDouble()*1000) < probability
     }

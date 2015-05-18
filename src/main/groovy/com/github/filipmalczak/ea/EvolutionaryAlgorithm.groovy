@@ -43,6 +43,7 @@ class EvolutionaryAlgorithm<S extends Specimen> {
      * @return Last population, sorted (ascending) by evaluation.
      */
     List<S> doRun(Context context) {
+        log.debug "Problem: ${context.problemDefinition}"
         List<S> population = generatePopulation.generate(populationSize, context)
         context.generation = 0
 
@@ -57,6 +58,7 @@ class EvolutionaryAlgorithm<S extends Specimen> {
             contextHandler.update(population, context)
             log.debug("Mixin addition")
             population += generatePopulation.generate((int)Math.ceil(mixinFactor*populationSize), context)
+            sexmissionProtocol(population, context)
             log.debug("Done")
             log.debug("Gender selection")
             List<List<S>> parentSets = genderSelection.selectParentSets(population, populationSize, context)
@@ -84,5 +86,39 @@ class EvolutionaryAlgorithm<S extends Specimen> {
         return population
     }
 
-
+    /**
+     * This protects runs that use more than one gender from losing specimen of one sex.
+     * If there are less than 5 specimen of some sex in population, max(ceiling(0.05*|population|), 5)
+     * specimens of that sex are generated and added.
+     *
+     * Initially new specimens were introduced only when some sex was missing, but for example, when choosing
+     * specimen of specific gender with tourney choose operator, and size of tourney is greater than number
+     * of such specimens in population, we were getting into an infinite loop.
+     * @param population Current population, extended in place, if needed
+     * @param context Current run context
+     */
+    void sexmissionProtocol(List<S> population, Context<S> context){
+        Map<Integer, Integer> missingSexes = [:]
+        (0..(generatePopulation.genderCount-1)).each {
+            missingSexes[it] = 5
+        }
+        def iterator = population.iterator()
+        while (!missingSexes.isEmpty() && iterator.hasNext()){
+            def next = iterator.next()
+            if (missingSexes.containsKey(next.gender)) {
+                missingSexes[next.gender]--
+            }
+        }
+        def toGenerate = [ Math.ceil(populationSize*0.05) as int, 5 ].max()
+        if (!missingSexes.isEmpty()) {
+            log.warn("Jutro też wam uciekniemy!")
+            log.debug("Sexmission protocol activated, generating $toGenerate specimens of each of sexes: $missingSexes")
+        }
+        missingSexes.keySet().each { int sex ->
+            generatePopulation.generate(toGenerate, context).each {
+                it.gender = sex
+                population.add it
+            }
+        }
+    }
 }

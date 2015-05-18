@@ -2,8 +2,10 @@ package com.github.filipmalczak.heuristics
 
 import groovy.time.TimeCategory
 import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
 
 @EqualsAndHashCode
+@ToString
 class Context<S extends Specimen> implements Serializable{
     Map<String, Object> problemDefinition = [:]
 

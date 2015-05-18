@@ -11,6 +11,7 @@ class DataSetConfig {
     static executeStage = [
         initial: true,
         tweak: true,
+        research: true,
         csv: true
     ]
 }

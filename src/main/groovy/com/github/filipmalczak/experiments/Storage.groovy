@@ -1,5 +1,6 @@
 package com.github.filipmalczak.experiments
 
+import com.github.filipmalczak.utils.Pair
 import org.nustaq.serialization.FSTConfiguration
 
 import groovy.io.FileType
@@ -14,6 +15,10 @@ class Storage {
     File baseDir
     static final JsonSlurper slurper = new JsonSlurper()
     static final FSTConfiguration conf = FSTConfiguration.createDefaultConfiguration()
+
+    static {
+        Storage.instance.init()
+    }
 
     static byte[] serialize(result) {
         conf.asByteArray(result)
@@ -183,5 +188,11 @@ class Storage {
         }
     }
 
-
+    List<Pair<List<String>, Object>> collectResults(String experimentName){
+        List out = []
+        eachResult(experimentName) { params, result ->
+            out << new Pair(params, result)
+        }
+        out
+    }
 }

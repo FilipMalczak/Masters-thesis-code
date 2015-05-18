@@ -8,6 +8,7 @@ import groovy.transform.Canonical
 
 @Canonical
 class GeneratePoints extends AbstractGeneratePopulation<Point> {
+    int genders
     int dimensions
 
     @Override
