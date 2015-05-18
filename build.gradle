@@ -32,7 +32,9 @@ def toRun = [
     plot: "Plotter",
     small: "InitialConfig",
     research: "DoResearch",
-    tables: "AllResearchToTables"
+    tables: "AllResearchToTables",
+    reproduce: "ReproduceLiterature",
+    literature: "ReproduceLiterature"
 ]
 
 def target = project.hasProperty("target") && toRun.containsKey(project.properties.target) ?
