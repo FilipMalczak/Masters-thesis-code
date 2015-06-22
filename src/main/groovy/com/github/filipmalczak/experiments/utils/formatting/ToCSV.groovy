@@ -1,7 +1,8 @@
-package com.github.filipmalczak.experiments
+package com.github.filipmalczak.experiments.utils.formatting
 
 import com.github.filipmalczak.datasets.knapsack01.KnapsackResources
 import com.github.filipmalczak.datasets.tsp.TSPResources
+import com.github.filipmalczak.experiments.utils.Storage
 import com.github.filipmalczak.heuristics.Context
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -10,22 +11,17 @@ println "ToCSV"
 Logger log = LoggerFactory.getLogger(ToCSV)
 
 Map<String, List<String>> paramNamesForExperiments = [
-    "initial_tsp": [ "popSize", "mixinFactor", "cp", "mp", "maxGen", "natSel"],
-    "initial_knapsack": [ "popSize", "mixinFactor", "cp", "mp", "maxGen", "natSel"],
-    "initial_rastrigin": [ "popSize", "mixinFactor", "cp", "mp", "maxGen", "natSel"],
-    "tweak_tsp": [ "popSize", "mixinFactor", "cp", "mp", "maxGen", "natSel"],
-    "tweak_knapsack": [ "popSize", "mixinFactor", "cp", "mp", "maxGen", "natSel"],
-    "tweak_rastrigin": [ "popSize", "mixinFactor", "cp", "mp", "maxGen", "natSel"],
-    "small_initial_tsp": [ "popSize", "mixinFactor", "cp", "mp", "maxGen", "natSel"]
+    "tsp_initial": [ "popSize", "mixinFactor", "cp", "mp", "maxGen", "natSel"],
+    "knapsack_initial": [ "popSize", "mixinFactor", "cp", "mp", "maxGen", "natSel"],
+    "tsp_tweak": [ "popSize", "mixinFactor", "cp", "mp", "maxGen", "natSel"],
+    "knapsack_tweak": [ "popSize", "mixinFactor", "cp", "mp", "maxGen", "natSel"]
 ]
 
 Map<String, Double> optimums = [
-    "initial_tsp": TSPResources.sahara.bound,
-    "initial_knapsack": KnapsackResources.medium.optimum,
-    "initial_rastrigin": 0,
-    "tweak_tsp": TSPResources.sahara.bound,
-    "tweak_knapsack": KnapsackResources.medium.optimum,
-    "tweak_rastrigin": 0,
+    "tsp_initial": TSPResources.sahara.bound,
+    "knapsack_initial": KnapsackResources.medium.optimum,
+    "tsp_tweak": TSPResources.sahara.bound,
+    "knapsack_tweak": KnapsackResources.medium.optimum
 ]
 
 def storage = Storage.instance

@@ -1,4 +1,4 @@
-package com.github.filipmalczak.experiments
+package com.github.filipmalczak.experiments.utils.formatting
 
 new ResearchToTable("tsp", ResearchToTable.CSV).run()
 new ResearchToTable("tsp", ResearchToTable.LATEX).run()

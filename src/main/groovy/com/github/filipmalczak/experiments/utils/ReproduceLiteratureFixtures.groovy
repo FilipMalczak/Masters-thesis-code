@@ -1,9 +1,8 @@
-package com.github.filipmalczak.experiments
+package com.github.filipmalczak.experiments.utils
 
 import com.github.filipmalczak.datasets.ContextCategory
 import com.github.filipmalczak.datasets.knapsack01.KnapsackResources
 import com.github.filipmalczak.datasets.tsp.TSPResources
-import com.github.filipmalczak.ea.operators.GenderSelectionOperator
 import com.github.filipmalczak.ea.utils.EAUtils
 import com.github.filipmalczak.heuristics.Context
 import com.github.filipmalczak.impl.choose_operator.ChooseOperator
@@ -114,11 +113,12 @@ class ReproduceLiteratureFixtures {
                                     gendersCount: 2,
                                     genderSelection: new WithGender<>(
                                         [
-                                            (0): chooseOperators[choose],
-                                            (1): chooseOperators[choose]
+                                            (0): chooseOperators["random"],
+                                            (1): chooseOperators["random"]
                                         ],
                                         true
                                     ),
+                                    naturalSelection: new NaturalSelection<>(chooseOperators[choose]),
                                     context: result
                                 )
                             )

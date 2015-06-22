@@ -1,7 +1,6 @@
-package com.github.filipmalczak.experiments
+package com.github.filipmalczak.experiments.utils
 
 import com.github.filipmalczak.impl.choose_operator.ChooseOperator
-import com.github.filipmalczak.impl.choose_operator.MaxDiversityChoose
 import com.github.filipmalczak.impl.choose_operator.RandomChoose
 import com.github.filipmalczak.impl.choose_operator.RankRouletteChoose
 import com.github.filipmalczak.impl.choose_operator.TourneyChoose
@@ -9,8 +8,6 @@ import com.github.filipmalczak.impl.gender_selection.Harem
 import com.github.filipmalczak.impl.gender_selection.NoGender
 import com.github.filipmalczak.impl.gender_selection.WithGender
 import com.github.filipmalczak.impl.natural_selection.NaturalSelection
-import com.github.filipmalczak.impl.tsp.Tour
-import sun.reflect.generics.reflectiveObjects.NotImplementedException
 
 import groovy.transform.Canonical
 import groovy.util.logging.Slf4j
@@ -81,21 +78,21 @@ class DoResearchFixture implements Runnable{
             ["populationSize", "mixinFactor", "crossProb", "mutProb", "generations", "natSel"],
             tweakedSetup + [natSel: tweaked.natSel, iteration: i]
         )
-        log.info("Looking for key $researchKey in experiment $name")
+        log.debug("Looking for key $researchKey in experiment $name")
         def result = Storage.instance.getResult(name, researchKey)
         if (result == null) {
-            log.info("Looking for key $reusableKey in experiment tweak_$name")
+            log.debug("Looking for key $reusableKey in experiment tweak_$name")
             result = Storage.instance.getResult("tweak_$name", reusableKey)
             if (result != null) {
-                log.info("Found in tweak_$name")
+                log.debug("Found in tweak_$name")
                 Storage.instance.putResult(name, researchKey, result)
             }
         } else {
-            log.info("Found in $name")
+            log.debug("Found in $name")
         }
 
         if (result == null) {
-            log.info "No saved result, calling body"
+            log.debug "No saved result, calling body"
             def config = baseSetup(
                 fillConfig(
                     tweakedSetup + [
@@ -112,15 +109,15 @@ class DoResearchFixture implements Runnable{
 
     def lookupGender(String genderSelectionName, int iter, Map setup, String first, String second, boolean dychotomy){
         String researchKey = "${genderSelectionName}_${[first, second, "${dychotomy}"].join("_")}_$iter"
-        log.info("Looking for key $researchKey in experiment $name")
+        log.debug("Looking for key $researchKey in experiment $name")
         def result = Storage.instance.getResult(name, researchKey)
 
         if (result == null) {
             String reverseKey = "${genderSelectionName}_${[second, first, "${dychotomy}"].join("_")}_$iter"
-            log.info("Looking for key $reverseKey in experiment $name")
+            log.debug("Looking for key $reverseKey in experiment $name")
             result = Storage.instance.getResult(name, reverseKey)
             if (result==null) {
-                log.info "No saved result, calling body"
+                log.debug "No saved result, calling body"
                 def config = baseSetup(
                     fillConfig(
                         tweakedSetup + setup + [
@@ -132,21 +129,21 @@ class DoResearchFixture implements Runnable{
                 result = config.context
                 Storage.instance.putResult(name, researchKey, result)
             } else {
-                log.info("Found result with reverse choose operators! Key: $reverseKey")
+                log.debug("Found result with reverse choose operators! Key: $reverseKey")
             }
 
         } else {
-            log.info("Found in $name")
+            log.debug("Found in $name")
         }
     }
 
     def lookup(String genderSelectionName, int iter, Map setup, Object... params){
         String researchKey = "${genderSelectionName}_${params.join("_")}_$iter"
-        log.info("Looking for key $researchKey in experiment $name")
+        log.debug("Looking for key $researchKey in experiment $name")
         def result = Storage.instance.getResult(name, researchKey)
 
         if (result == null) {
-            log.info "No saved result, calling body"
+            log.debug "No saved result, calling body"
             def config = baseSetup(
                 fillConfig(
                     tweakedSetup + setup +[
@@ -158,7 +155,7 @@ class DoResearchFixture implements Runnable{
             result = config.context
             Storage.instance.putResult(name, researchKey, result)
         } else {
-            log.info("Found in $name")
+            log.debug("Found in $name")
         }
     }
 

@@ -1,10 +1,7 @@
-package com.github.filipmalczak.experiments
+package com.github.filipmalczak.experiments.utils
 
 import groovy.util.logging.Slf4j
 import groovyx.gpars.GParsPool
-
-import static groovyx.gpars.GParsPool.withPool
-
 import groovy.transform.Canonical
 
 @Canonical
@@ -72,23 +69,23 @@ class Explore {
                             (0..repeats - 1).eachParallel { int i ->
                                 Map localConfig = current + [iteration: i, (param): val]
                                 String k = key(localConfig)
-                                log.info("Looking for key $k in experiment $name")
+                                log.debug("Looking for key $k in experiment $name")
                                 def result = Storage.instance.getResult(name, k)
                                 if (result == null) {
                                     def reusableExperiment = reuseResultsFrom.find {
-                                        log.info("Looking for key $k in experiment $it")
+                                        log.debug("Looking for key $k in experiment $it")
                                         Storage.instance.getResult(it, k)
                                     }
                                     if (reusableExperiment) {
                                         result = Storage.instance.getResult(reusableExperiment, k)
-                                        log.info("Found in $reusableExperiment")
+                                        log.debug("Found in $reusableExperiment")
                                     }
                                 } else {
-                                    log.info("Found in $name")
+                                    log.debug("Found in $name")
                                 }
 
                                 if (result == null) {
-                                    log.info "No saved result, calling body"
+                                    log.debug "No saved result, calling body"
                                     result = body.call(realize(localConfig))
                                     Storage.instance.putResult(name, k, result)
                                 }

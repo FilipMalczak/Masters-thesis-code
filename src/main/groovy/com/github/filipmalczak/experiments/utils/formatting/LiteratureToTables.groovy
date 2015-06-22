@@ -1,5 +1,6 @@
-package com.github.filipmalczak.experiments
+package com.github.filipmalczak.experiments.utils.formatting
 
+import com.github.filipmalczak.experiments.utils.Storage
 import com.github.filipmalczak.heuristics.Context
 import com.github.filipmalczak.utils.Pair
 
@@ -7,7 +8,7 @@ import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 
 
-class LiteratureToCSV implements Runnable{
+class LiteratureToTables implements Runnable{
 
 //    Map<String, String> characters = LATEX
     Map<String, String> characters = CSV
@@ -58,10 +59,10 @@ class LiteratureToCSV implements Runnable{
 
     String getNormal(List<Pair<List<String>, Context>> results){
         results.collect { Pair<List<String>, Context> result ->
-            result.first + [
+            (result.first + [
                 format.format(result.second.globalBest.evaluate(result.second)),
                 "${result.second.duration}"
-            ].join(characters.separator)
+            ]).join(characters.separator)
         }.join(characters.newline)
     }
 
@@ -116,4 +117,8 @@ class LiteratureToCSV implements Runnable{
         }
     }
 
+    public static void main(String[] args){
+        new LiteratureToTables().run()
+    }
+    
 }

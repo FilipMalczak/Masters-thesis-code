@@ -1,9 +1,8 @@
-package com.github.filipmalczak.experiments
+package com.github.filipmalczak.experiments.utils.formatting
 
+import com.github.filipmalczak.experiments.utils.Storage
 import com.github.filipmalczak.heuristics.Context
 import com.github.filipmalczak.utils.Pair
-
-import groovy.transform.Canonical
 
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols

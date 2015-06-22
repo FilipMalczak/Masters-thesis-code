@@ -1,5 +1,6 @@
-package com.github.filipmalczak.experiments
+package com.github.filipmalczak.experiments.utils.formatting
 
+import com.github.filipmalczak.experiments.utils.Storage
 import com.github.filipmalczak.heuristics.Context
 
 @Singleton
@@ -10,32 +11,7 @@ class Plotter {
 //        initial_knapsack: [0, 250_000]
     ]
 
-    String generateDataFile(Context context, def width=0.3){
-        def out = "" << ""
-        def avgs = context.avgHistory.reverse()
-        if (!avgs)
-            return null
-        def worsts = context.worstHistory.reverse()
-        def bests = context.bestHistory.reverse()
-        def vars = context.varianceHistory.reverse()
-        avgs.eachWithIndex { double avg, int i ->
-//            def stdDev = Math.sqrt(vars[i])
-            def stdDev = vars[i]
-            out << [
-                i,
-                worsts[i],
-                avg-stdDev,
-                avg,
-                avg+stdDev,
-                bests[i],
-                width,
-                i
-            ].collect {"${it}"}.join("\t")
-            out << "\n"
-        }
-        return out.toString()
-    }
-
+    static final ToGnuPlotTable tableProvider = new ToGnuPlotTable()
 
     String getScript(String expName, String key, String outPath, String dataPath, boolean title=true){
         return (title ? 'set title "'+key+'\\n'+expName+'"' : "" )+ """
@@ -44,10 +20,9 @@ set ylabel "Eval"
 set grid
 set terminal pngcairo size 800,600 noenhanced font 'Verdana,10'
 set output '${outPath}'
-set bars 2.0 """+
-            (bounds[expName] ? """set xrange [*<${bounds[expName][0]}:${bounds[expName][1]}<*]
-""" : "\n")+ """set style fill empty
-plot '${dataPath}' using 1:3:2:6:5:xticlabels(8) with candlesticks title 'Variance' whiskerbars, \\
+set bars 2.0
+set style fill empty
+plot '${dataPath}' using 1:3:2:6:5 with candlesticks title 'Variance' whiskerbars, \\
     ''         using 1:4:4:4:4 with candlesticks lt -1 notitle, \\
     ''         using 1:4 with linespoints lt 3 pt 13 title 'Mean'
     """
@@ -56,10 +31,9 @@ plot '${dataPath}' using 1:3:2:6:5:xticlabels(8) with candlesticks title 'Varian
     void plotIt(String expName, String key, boolean title=true){
         def ctx = Storage.instance.getResult(expName, key)
         Storage.instance.withTempDir { File dir ->
-            def dataFile = new File(dir, "data.dat")
-            def data = generateDataFile(ctx)
-            if (data) {
-                dataFile.text = data
+            try {
+                tableProvider.renderTable(expName, key)
+                def dataFile = Storage.instance.gnuplotDataFile(expName, key)
                 def scriptFile = new File(dir, "script.gnuplot")
                 scriptFile.text = getScript(expName, key,
                     Storage.instance.plotFile(expName, (title ? "" : "un") + "titled", key).absolutePath + ".png",
@@ -78,6 +52,10 @@ plot '${dataPath}' using 1:3:2:6:5:xticlabels(8) with candlesticks title 'Varian
                     System.err.println p.errorStream.text
                     throw t
                 }
+            } catch (Throwable t){
+                println "expName: $expName, key: $key"
+                t.printStackTrace(System.out)
+                //ignore; it means that there is no table under that key
             }
         }
     }
@@ -100,8 +78,8 @@ plot '${dataPath}' using 1:3:2:6:5:xticlabels(8) with candlesticks title 'Varian
 
     static void main(String... args){
         Storage.instance.init()
-//        Plotter.instance.plotAll(true)
-//        Plotter.instance.plotIt("initial_tsp", "100_0.0_0.8_0.1_100_roulette_0")
-        Plotter.instance.plotExperiment("tsp")
+        Plotter.instance.plotAll(true)
+//        Plotter.instance.plotIt("tweak_tsp", "60_0.0_0.58_0.1_110_roulette_2")
+//        Plotter.instance.plotExperiment("tsp")
     }
 }

@@ -1,5 +1,7 @@
 package com.github.filipmalczak.experiments
 
+import com.github.filipmalczak.experiments.utils.Storage
+
 
 class StorageTest extends GroovyTestCase {
     void testRecursiveMerge() {

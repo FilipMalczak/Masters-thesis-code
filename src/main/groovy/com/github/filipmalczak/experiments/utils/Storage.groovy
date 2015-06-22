@@ -1,4 +1,4 @@
-package com.github.filipmalczak.experiments
+package com.github.filipmalczak.experiments.utils
 
 import com.github.filipmalczak.utils.Pair
 import org.nustaq.serialization.FSTConfiguration
@@ -83,6 +83,8 @@ class Storage {
 
     @Lazy File tempBaseDir = ensuredDir(File.createTempDir())
 
+    @Lazy File gnuplotDataDir = ensuredDir(new File(baseDir, "gnuplot"))
+
     File experimentDir(String name){
         ensuredDir(new File(resultsDir, name))
     }
@@ -101,6 +103,14 @@ class Storage {
 
     File plotFile(String experimentName, String subdir, String key){
         new File(plotSubdir(experimentName, subdir), key)
+    }
+
+    File gnuplotDataDir(String name){
+        ensuredDir(new File(gnuplotDataDir, name))
+    }
+
+    File gnuplotDataFile(String experimentName, String key){
+        new File(gnuplotDataDir(experimentName), key+".dat")
     }
 
     protected final AtomicInteger dirCounter = new AtomicInteger(-1)

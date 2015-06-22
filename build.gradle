@@ -2,8 +2,6 @@ plugins {
     id 'java'
     id 'groovy'
     id 'idea'
-    id 'maven'
-    id 'jacoco'
     id 'application'
 }
 
@@ -18,9 +16,6 @@ repositories {
     maven {
         url 'http://oss.jfrog.org/artifactory/oss-snapshot-local'
     }
-//    maven {
-//        url "http://mvn.erichseifert.de/maven2"
-//    }
 }
 
 run.doFirst {
@@ -28,27 +23,9 @@ run.doFirst {
         ([ baseDir: file("storage").absolutePath ] as Properties).store(it, "Storage configuration")
     }
 }
-def toRun = [
-    all: "RunAll",
-    csv: "ToCSV",
-    x: "X",
-    X: "X",
-    plot: "Plotter",
-    small: "InitialConfig",
-    research: "DoResearch",
-    tables: "AllResearchToTables",
-    reproduce: "ReproduceLiterature",
-    literature: "ReproduceLiterature",
-    literatureTables: "LiteratureToCSV"
-]
 
-def target = project.hasProperty("target") && toRun.containsKey(project.properties.target) ?
-    project.properties.target :
-    "all"
 
-mainClassName =  "com.github.filipmalczak.experiments.${toRun[target]}"
-
-//mainClassName =  "com.github.filipmalczak.new_experiments.KnapsackSuite"
+mainClassName =  "com.github.filipmalczak.experiments.DoExperimentation"
 
 dependencies {
     // Common dependencies
@@ -56,10 +33,11 @@ dependencies {
     compile 'org.slf4j:slf4j-api:1.7.2'
     compile "can.i.has:GreX:0.2-SNAPSHOT"
     compile "org.codehaus.gpars:gpars:1.2.1"
-//    compile 'de.erichseifert.gral:gral-core:0.10'
+    compile 'org.apache.commons:commons-math3:3.5'
+
     testCompile 'junit:junit:4.11'
 
-//    runtime 'org.slf4j:slf4j-log4j12:1.7.2'
+    runtime 'org.slf4j:slf4j-log4j12:1.7.2'
 
 }
 
